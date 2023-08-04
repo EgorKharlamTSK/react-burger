@@ -2,17 +2,18 @@ import React from 'react';
 import './App.css';
 import {AppHeader} from "./components/appheader/AppHeader";
 import {BurgerIngredients} from "./components/burgeringredients/BurgerIngredients";
+import {BurgerConstructor} from "./components/burgerconstructor/BurgerConstructor";
 
 function App() {
   return (
     <div className="App">
       <AppHeader />
         <main>
-            <section>
+            <section className='mt-10'>
                 <BurgerIngredients />
             </section>
             <section>
-                <h1>ЗДЕСЬ БУДЕТ ЕЩЕ КОЕ ЧТО</h1>
+                <BurgerConstructor />
             </section>
         </main>
     </div>

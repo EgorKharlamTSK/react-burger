@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import btnStyle from './AppHeader.module.css'
+import PropTypes from "prop-types";
 
 export const AppHeaderButton = ({text, icon, iconHover}) => {
     const [hover, setHover] = useState(false)
@@ -20,3 +21,9 @@ export const AppHeaderButton = ({text, icon, iconHover}) => {
         </a>
     )
 }
+
+AppHeaderButton.propTypes = {
+    text: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired,
+    iconHover: PropTypes.object.isRequired
+};

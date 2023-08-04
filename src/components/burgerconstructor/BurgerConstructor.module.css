@@ -1,0 +1,16 @@
+.footer_constructor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.price{
+    display: flex;
+    flex-direction: row;
+}
+
+.constructor_list{
+    overflow-y: auto!important;
+    height: 80% !important;
+}
