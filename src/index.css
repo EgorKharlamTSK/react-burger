@@ -26,7 +26,7 @@ main {
   flex-direction: row;
 }
 
-main section{
+main > div{
   width: 50%;
 }
 

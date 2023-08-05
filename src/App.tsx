@@ -8,13 +8,9 @@ function App() {
   return (
     <div className="App">
       <AppHeader />
-        <main>
-            <section className='mt-10'>
-                <BurgerIngredients />
-            </section>
-            <section>
-                <BurgerConstructor />
-            </section>
+        <main className='mt-10'>
+            <BurgerIngredients />
+            <BurgerConstructor />
         </main>
     </div>
   );

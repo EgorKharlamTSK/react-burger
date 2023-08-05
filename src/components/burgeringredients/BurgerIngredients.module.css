@@ -5,7 +5,7 @@ p {
 .card{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .ingredients_item{
@@ -43,4 +43,8 @@ p {
     background: transparent;
     border: none;
     position: relative;
+}
+
+.ingredients_tabs{
+    display: flex;
 }

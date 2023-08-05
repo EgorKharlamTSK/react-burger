@@ -12,7 +12,7 @@ export const BurgerConstructor = () => {
                     <CurrencyIcon type="primary" />
                 </div>
                 <Button htmlType="button" type="primary" size="large">
-                    Нажми на меня
+                    Оформить заказ
                 </Button>
             </div>
         </div>

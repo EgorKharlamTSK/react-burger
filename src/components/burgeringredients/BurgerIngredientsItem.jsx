@@ -2,19 +2,19 @@ import styles from './BurgerIngredients.module.css'
 import tabStyle from "./BurgerIngredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
-import PropTypes from "prop-types";
+import BurgerIngredientsItemType from '../../utils/props-types'
 export const BurgerIngredientsItem = ({title, data}) => {
     const [count, setCounter] = useState(0)
 
     return (
-        <div className={`${styles.card} pt-6 pb-10 pl-6 pr-6 mb-10`}>
+        <div className={`${styles.card}`}>
             <p className="text text_type_main-medium mb-6">
                 {title}
             </p>
             <div className={`${styles.ingredients_item}`}>
-                {data && Array.isArray(data) ? (
+                {data.length > 0 ? (
                     (data?.map((item) => {
-                        return <div className={`${tabStyle.tabItem} mb-8`} key={item._id}>
+                        return <div className={`${tabStyle.tabItem} mt-6 mb-10`} key={item._id}>
                             <button
                                 key={item._id}
                                 className={`${tabStyle.btn}`}
@@ -29,12 +29,12 @@ export const BurgerIngredientsItem = ({title, data}) => {
                                 )}
                             </button>
                             <div className={`${tabStyle.item_price} mt-1 mb-1`}>
-                                <p className="text text_type_digits-default mr-2">
+                                <p className="text text_type_digits-default">
                                     {item.price}
                                 </p>
                                 <CurrencyIcon type="primary" />
                             </div>
-                            <p className={` ${tabStyle.text} text text_type_main-small`}>
+                            <p className={` ${tabStyle.text} text text_type_main-small mb-4`}>
                                 {item.name}
                             </p>
                         </div>
@@ -45,20 +45,4 @@ export const BurgerIngredientsItem = ({title, data}) => {
     )
 }
 
-BurgerIngredientsItem.prototype = {
-    title: PropTypes.string.isRequired,
-    data: PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number
-    }).isRequired
-}
+BurgerIngredientsItem.propTypes = BurgerIngredientsItemType

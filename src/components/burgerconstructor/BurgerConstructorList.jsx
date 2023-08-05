@@ -1,12 +1,13 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {data} from "../../utils/data";
+import styles from './BurgerConstructor.module.css'
 
 export const BurgerConstructorList = () => {
     const firstItem = data.shift()
     const lastItem = data[data.length - 1]
 
     return (
-        <div className={`pt-25`} style={{ display: 'flex', flexDirection: 'column', gap: '10px', overflowY: 'auto', height: '73vh'}}>
+        <div className={`${styles.general_burger_constructor} pt-25`}>
             <ConstructorElement
                 key={firstItem._id}
                 type="top"
@@ -15,8 +16,8 @@ export const BurgerConstructorList = () => {
                 price={firstItem.price}
                 thumbnail={firstItem.image_mobile}
             />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', overflowY: 'auto', height: '80vh'}}>
-                {data && data.length !== 0 ?
+            <div className={styles.middle_burger_constructor}>
+                {data?.length > 0 ?
                     data.map((item) => {
                         if(item !== firstItem && item !== lastItem){
                             return <ConstructorElement

@@ -1,43 +1,42 @@
 import {useState} from "react";
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import {BurgerIngredientsItem} from "./BurgerIngredientsItem";
 
 import ingridientsStyle from './BurgerIngredients.module.css'
 import {data} from "../../utils/data";
+import {BurgerIngredientsTabs} from "./BurgerIngredientsTabs";
 
 export const BurgerIngredients = () => {
-    const [current, setCurrent] = useState('one')
+    const [current, setCurrent] = useState('bun')
+    const [buns] = useState(
+        data.filter((bunItem) => bunItem.type === 'bun')
+    )
+    const [sauce] = useState(
+        data.filter((sauceItem) => sauceItem.type === 'sauce')
+    )
+    const [main] = useState(
+        data.filter((mainItem) => mainItem.type === 'main')
+    )
 
     return (
-        <>
+        <div>
             <p className="text text_type_main-large mb-5">
                 Соберите бургер
             </p>
-            <div style={{ display: 'flex' }}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-                    Булки
-                </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-                    Соусы
-                </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-                    Начинки
-                </Tab>
-            </div>
-            <div className={`${ingridientsStyle.ingredients_list} pt-6 pl-4 pr-4`}>
+            <BurgerIngredientsTabs current={current} setCurrent={setCurrent}/>
+            <div className={`${ingridientsStyle.ingredients_list}`}>
                 <BurgerIngredientsItem
                     title='Булки'
-                    data={data.filter((item) => item.type === 'bun' && item)}
+                    data={buns}
                 />
                 <BurgerIngredientsItem
                     title='Соусы'
-                    data={data.filter((item) => item.type === 'sauce' && item)}
+                    data={sauce}
                 />
                 <BurgerIngredientsItem
                     title='Начинки'
-                    data={data.filter((item) => item.type === 'main' && item)}
+                    data={main}
                 />
             </div>
-        </>
+        </div>
     )
 }

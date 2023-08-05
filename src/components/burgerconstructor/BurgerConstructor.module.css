@@ -14,3 +14,19 @@
     overflow-y: auto!important;
     height: 80% !important;
 }
+
+.general_burger_constructor{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    height: 73vh;
+}
+
+.middle_burger_constructor{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    height: 80vh;
+}
