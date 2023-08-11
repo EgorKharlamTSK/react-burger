@@ -1,8 +1,8 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import {data} from "../../utils/data";
-import styles from './BurgerConstructor.module.css'
+// import {data} from "../../utils/data";
+import styles from './burger-constructor.module.css'
 
-export const BurgerConstructorList = () => {
+export const BurgerConstructorList = ({data}) => {
     const firstItem = data.shift()
     const lastItem = data[data.length - 1]
 

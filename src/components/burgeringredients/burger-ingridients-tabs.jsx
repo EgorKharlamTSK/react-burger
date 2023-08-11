@@ -1,8 +1,8 @@
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import styles from './BurgerIngredients.module.css'
+import styles from './burger-ingridients.module.css'
 
-export const BurgerIngredientsTabs = ({current, setCurrent}) => {
+export const BurgerIngridientsTabs = ({current, setCurrent}) => {
 
     return(
         <div className={`${styles.ingredients_tabs} mb-10`}>
@@ -19,7 +19,7 @@ export const BurgerIngredientsTabs = ({current, setCurrent}) => {
     )
 }
 
-BurgerIngredientsTabs.propTypes = {
+BurgerIngridientsTabs.propTypes = {
     current: PropTypes.string,
     setCurrent: PropTypes.func
 }

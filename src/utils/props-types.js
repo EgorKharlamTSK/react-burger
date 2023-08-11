@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const  BurgerIngredientsItemType  = {
+export const BurgerIngredientsItemType  = {
     title: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string,
@@ -18,4 +18,13 @@ const  BurgerIngredientsItemType  = {
     })).isRequired
 }
 
-export default BurgerIngredientsItemType
+export const ModalPropTypes = {
+    title: PropTypes.string,
+    closeModal: PropTypes.func,
+    children: PropTypes.node
+}
+
+export const ModalOverlayPropTypes = {
+    closeModal: PropTypes.func,
+    children: PropTypes.node
+}

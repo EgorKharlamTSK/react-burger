@@ -1,8 +1,9 @@
-import React from "react";
-import btnStyle from './AppHeader.module.css'
+import React, {useState} from "react";
+import btnStyle from './app-header.module.css'
 import PropTypes from "prop-types";
 
-export const AppHeaderButton = ({text, icon, setHover,}) => {
+export const AppHeaderButton = ({text, icon}) => {
+    const [hover, setHover] = useState(false)
 
     return(
         <a
@@ -11,7 +12,9 @@ export const AppHeaderButton = ({text, icon, setHover,}) => {
            href="/"
            className={`${btnStyle.header_button} pt-4 pb-4 pl-5 pr-5`}
         >
-            <span>{icon}</span>
+            <span>
+                {icon}
+            </span>
             <span className='ml-1 text text_type_main-default'>{text}</span>
         </a>
     )
@@ -20,5 +23,4 @@ export const AppHeaderButton = ({text, icon, setHover,}) => {
 AppHeaderButton.propTypes = {
     text: PropTypes.string.isRequired,
     icon: PropTypes.object.isRequired,
-    setHover: PropTypes.func,
 };

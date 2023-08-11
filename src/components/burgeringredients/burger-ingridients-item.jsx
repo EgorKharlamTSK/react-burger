@@ -1,10 +1,20 @@
-import styles from './BurgerIngredients.module.css'
-import tabStyle from "./BurgerIngredients.module.css";
+import styles from './burger-ingridients.module.css'
+import tabStyle from "./burger-ingridients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
-import BurgerIngredientsItemType from '../../utils/props-types'
-export const BurgerIngredientsItem = ({title, data}) => {
+import {BurgerIngredientsItemType} from '../../utils/props-types'
+import {Modal} from "../modal/modal";
+import {IngredientsModalTable} from "./ingredients-modal-table";
+
+export const BurgerIngridientsItem = ({title, data}) => {
     const [count, setCounter] = useState(0)
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null)
+
+    const handleModal = (item) => {
+        setSelectedItem(item)
+        setIsOpenModal(!isOpenModal);
+    };
 
     return (
         <div className={`${styles.card}`}>
@@ -18,7 +28,11 @@ export const BurgerIngredientsItem = ({title, data}) => {
                             <button
                                 key={item._id}
                                 className={`${tabStyle.btn}`}
-                                onClick={() => setCounter(count + 1)}
+                                onClick={() => {
+                                        setCounter(count + 1)
+                                        handleModal(item)
+                                    }
+                                }
                             >
                                 <img
                                     src={`${item.image}`}
@@ -41,8 +55,21 @@ export const BurgerIngredientsItem = ({title, data}) => {
                     }))
                 ) : null}
             </div>
+            {isOpenModal && selectedItem && (
+                <Modal closeModal={handleModal} title='Детали ингридиента'>
+                    <img
+                        className={`mt-15`}
+                        src={`${selectedItem.image_large}`}
+                        alt={selectedItem.name}
+                    />
+                    <p className="text text_type_main-medium mt-4 mb-8">
+                        {selectedItem.name}
+                    </p>
+                    <IngredientsModalTable selectedItem={selectedItem} />
+                </Modal>
+            )}
         </div>
     )
 }
 
-BurgerIngredientsItem.propTypes = BurgerIngredientsItemType
+BurgerIngridientsItem.propTypes = BurgerIngredientsItemType
