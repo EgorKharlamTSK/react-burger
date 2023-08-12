@@ -1,15 +1,12 @@
-import React from "react";
-import {createPortal} from "react-dom";
-import modalStyles from './modal.module.css'
-import {ModalOverlayPropTypes} from "../../utils/props-types";
+    import React from "react";
+    import modalStyles from './modal.module.css'
+    import {ModalOverlayPropTypes} from "../../utils/props-types";
 
-export const ModalOverlay = ({ closeModal, children }) => {
-    return createPortal(
-        <div className={modalStyles.overlay} onClick={closeModal}>
-            {children}
-        </div>,
-        document.getElementById("modal")
-    );
-}
+    export const ModalOverlay = ({ closeModal }) => {
+        return (
+            <div className={modalStyles.overlay} onClick={closeModal}>
+            </div>
+        );
+    };
 
-ModalOverlay.propTypes = ModalOverlayPropTypes
+    ModalOverlay.propTypes = ModalOverlayPropTypes

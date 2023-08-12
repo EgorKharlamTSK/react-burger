@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import {ModalOverlay} from "./modal-overlay";
 import modalStyles from './modal.module.css'
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {BurgerIngridientsItem} from "../burgeringredients/burger-ingridients-item";
-import {ModalPropTypes, modalPropTypes} from "../../utils/props-types";
+import {ModalPropTypes} from "../../utils/props-types";
+import {createPortal} from "react-dom";
 
 export const Modal = ({ title, closeModal, children }) => {
+    const modalBlock = document.getElementById("modal");
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === "Escape") {
@@ -18,9 +19,8 @@ export const Modal = ({ title, closeModal, children }) => {
         };
     }, [closeModal]);
 
-
-    return(
-        <ModalOverlay closeModal={closeModal}>
+    return createPortal(
+        <>
             <div className={`${modalStyles.modal} pb-15 pt-10 pl-10 pr-10`}>
                 <div className="modalContent">
                     <header className={modalStyles.modalHeader}>
@@ -32,9 +32,10 @@ export const Modal = ({ title, closeModal, children }) => {
                     <div className={modalStyles.modalBody}>{children}</div>
                 </div>
             </div>
-        </ModalOverlay>
+            <ModalOverlay closeModal={closeModal} />
+        </>,
+        modalBlock
     );
-
 };
 
-Modal.propTypes = ModalPropTypes
+Modal.propTypes = ModalPropTypes;

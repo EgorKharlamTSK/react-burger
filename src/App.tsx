@@ -3,18 +3,13 @@ import './App.css';
 import {AppHeader} from "./components/appheader/app-header";
 import {BurgerIngridients} from "./components/burgeringredients/burger-ingridients";
 import {BurgerConstructor} from "./components/burgerconstructor/burger-constructor";
-import { URL } from '../src/utils/constants'
+import {getIngredients} from "./utils/api";
 function App() {
     const [fetchData, setFetchData] = useState([])
     const [dataIsLoading, setDataIsLoading] = useState(true)
 
     useEffect(() => {
-        const res = fetch(URL)
-            .then(res => res.json())
-            .then(data => {
-                if (data?.success) return data.data
-            })
-        res
+       getIngredients()
             .then(setFetchData)
             .catch(er => console.log("Ошибка загрузки данных " + er))
             .finally(() => setDataIsLoading(false))

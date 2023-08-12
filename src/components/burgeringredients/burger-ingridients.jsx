@@ -2,7 +2,6 @@ import {useState} from "react";
 import {BurgerIngridientsItem} from "./burger-ingridients-item";
 
 import ingridientsStyle from './burger-ingridients.module.css'
-// import {data} from "../../utils/data";
 import {BurgerIngridientsTabs} from "./burger-ingridients-tabs";
 
 export const BurgerIngridients = ({ingridientsData}) => {

@@ -26,5 +26,4 @@ export const ModalPropTypes = {
 
 export const ModalOverlayPropTypes = {
     closeModal: PropTypes.func,
-    children: PropTypes.node
 }
