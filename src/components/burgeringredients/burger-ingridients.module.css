@@ -1,0 +1,50 @@
+p {
+    text-align: start;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.ingredients_item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tabItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    align-self: baseline;
+}
+
+.item_price{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.text{
+    text-align: center;
+}
+
+.ingredients_list{
+    overflow-y: auto;
+    height: 80%;
+}
+
+.btn{
+    background: transparent;
+    border: none;
+    position: relative;
+}
+
+.ingredients_tabs{
+    display: flex;
+}

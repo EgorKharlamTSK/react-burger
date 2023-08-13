@@ -1,3 +1,5 @@
+@import "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +12,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.container,
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  max-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+main > div{
+  width: 50%;
+}
+
+*::-webkit-scrollbar {
+  composes: custom-scroll from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  composes: custom-scroll from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
+  background: #2F2F37;
+}
+
+*::-webkit-scrollbar-thumb {
+  composes: custom-scroll from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css";
+  background: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 6px;
 }

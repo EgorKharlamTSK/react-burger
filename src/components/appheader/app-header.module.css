@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header_bg{
+    background: #1C1C21;
+}
+
+
+
+.header_button{
+    border-radius: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: #8585AD;
+    text-decoration: none;
+}
+
+.header_button:hover {
+    color: white;
+}
+
+.btn_groups_header {
+    display: flex;
+    flex-direction: row;
+}

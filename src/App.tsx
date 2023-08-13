@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-
+import {AppHeader} from "./components/appheader/app-header";
+import {BurgerIngridients} from "./components/burgeringredients/burger-ingridients";
+import {BurgerConstructor} from "./components/burgerconstructor/burger-constructor";
+import {getIngredients} from "./utils/api";
 function App() {
+    const [fetchData, setFetchData] = useState([])
+    const [dataIsLoading, setDataIsLoading] = useState(true)
+
+    useEffect(() => {
+       getIngredients()
+            .then(setFetchData)
+            .catch(er => console.log("Ошибка загрузки данных " + er))
+            .finally(() => setDataIsLoading(false))
+    }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppHeader />
+        {dataIsLoading ? (
+            <main className='mt-10'>
+                <p>Ожидайте загрузки ингридиентов</p>
+            </main>
+            ) : (
+            <main className='mt-10'>
+                <BurgerIngridients ingridientsData={fetchData}/>
+                <BurgerConstructor  constructorData={fetchData}/>
+            </main>
+        )}
     </div>
   );
 }
