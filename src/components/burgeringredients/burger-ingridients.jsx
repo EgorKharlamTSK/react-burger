@@ -1,10 +1,12 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {BurgerIngridientsItem} from "./burger-ingridients-item";
 
 import ingridientsStyle from './burger-ingridients.module.css'
 import {BurgerIngridientsTabs} from "./burger-ingridients-tabs";
+import {BurgerConstructorContext} from "../../services/burger-constructor-context";
 
-export const BurgerIngridients = ({ingridientsData}) => {
+export const BurgerIngridients = () => {
+    const ingridientsData = useContext(BurgerConstructorContext)
     const [current, setCurrent] = useState('bun')
     const [buns] = useState(
         ingridientsData.filter((bunItem) => bunItem.type === 'bun')
@@ -15,8 +17,6 @@ export const BurgerIngridients = ({ingridientsData}) => {
     const [main] = useState(
         ingridientsData.filter((mainItem) => mainItem.type === 'main')
     )
-
-    const[modalOpen, setModalOpen] = useState(false)
 
     return (
         <div>

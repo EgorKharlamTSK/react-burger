@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './App.css';
 import {AppHeader} from "./components/appheader/app-header";
 import {BurgerIngridients} from "./components/burgeringredients/burger-ingridients";
 import {BurgerConstructor} from "./components/burgerconstructor/burger-constructor";
 import {getIngredients} from "./utils/api";
+import {BurgerConstructorContext} from "./services/burger-constructor-context";
+
 function App() {
     const [fetchData, setFetchData] = useState([])
     const [dataIsLoading, setDataIsLoading] = useState(true)
@@ -23,10 +25,12 @@ function App() {
                 <p>Ожидайте загрузки ингридиентов</p>
             </main>
             ) : (
-            <main className='mt-10'>
-                <BurgerIngridients ingridientsData={fetchData}/>
-                <BurgerConstructor  constructorData={fetchData}/>
-            </main>
+           <BurgerConstructorContext.Provider value={fetchData}>
+                <main className='mt-10'>
+                    <BurgerIngridients />
+                    <BurgerConstructor />
+                </main>
+           </BurgerConstructorContext.Provider>
         )}
     </div>
   );

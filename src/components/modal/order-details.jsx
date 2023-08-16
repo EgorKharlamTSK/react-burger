@@ -1,8 +1,11 @@
 import {Modal} from "./modal";
 import orderComplete from "../../images/done.png";
 import PropTypes from "prop-types";
+import {useContext} from "react";
+import {OrderNumberContext} from "../../services/burger-constructor-context";
 
-export const OrderDetailsModal = ({handleModal,orderNumber}) => {
+export const OrderDetailsModal = ({handleModal}) => {
+    const orderNumber = useContext(OrderNumberContext)
     return(
         <Modal closeModal={handleModal}>
             <p className="text text_type_digits-large mt-20 mb-8">
@@ -18,5 +21,4 @@ export const OrderDetailsModal = ({handleModal,orderNumber}) => {
 
 OrderDetailsModal.propTypes = {
     handleModal: PropTypes.func,
-    orderNumber: PropTypes.number
 }
