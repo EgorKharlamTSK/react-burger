@@ -1,19 +1,35 @@
 import styles from './burger-ingridients.module.css'
 import tabStyle from "./burger-ingridients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {BurgerIngredientsItemType} from '../../utils/props-types'
 import {IngredientDetailsModal} from "../modal/ingredient-details";
+import {useDispatch, useSelector} from "react-redux";
+import {addIngredient} from "../../services/actions/burger-constructor";
+import {showIngredientInfo} from "../../services/selectors/current-ingredient-info";
+import {hideIngredientIfoModal, showIngredientIfoModal} from "../../services/actions/current-ingredient";
 
 export const BurgerIngridientsItem = ({title, data}) => {
+    const dispatch = useDispatch()
+    const selectedItem = useSelector(showIngredientInfo)
     const [count, setCounter] = useState(0)
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null)
-
+    const [selectedItem1, setSelectedItem] = useState(null)
     const handleModal = (item) => {
+        dispatch(showIngredientIfoModal(item))
         setSelectedItem(item)
         setIsOpenModal(!isOpenModal);
     };
+
+    useEffect(() => {
+        if (!isOpenModal){
+            dispatch(hideIngredientIfoModal())
+        }
+    }, [isOpenModal]);
+
+    const addIngredientToConstruct = (ingredient) => {
+        dispatch(addIngredient(ingredient))
+    }
 
     return (
         <div className={`${styles.card}`}>
@@ -27,15 +43,17 @@ export const BurgerIngridientsItem = ({title, data}) => {
                             <button
                                 key={item._id}
                                 className={`${tabStyle.btn}`}
-                                onClick={() => {
-                                        setCounter(count + 1)
-                                        handleModal(item)
-                                    }
-                                }
+                                // onClick={() => {
+                                //         setCounter(count + 1)
+                                //         handleModal(item)
+                                //     }
+                                // }
+                                onClick={() => addIngredientToConstruct(item)}
                             >
                                 <img
                                     src={`${item.image}`}
                                     alt={item.name}
+                                    onClick={() => handleModal(item)}
                                 />
                                 {count !== 0 && (
                                     <Counter count={count} />
@@ -55,7 +73,10 @@ export const BurgerIngridientsItem = ({title, data}) => {
                 ) : null}
             </div>
             {isOpenModal && selectedItem && (
-                <IngredientDetailsModal handleModal={handleModal}  selectedItem={selectedItem}/>
+                <IngredientDetailsModal
+                    handleModal={handleModal}
+                    selectedItem={selectedItem1}
+                />
             )}
         </div>
     )

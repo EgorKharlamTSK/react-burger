@@ -1,22 +1,27 @@
-import {useContext, useState} from "react";
+import {useEffect, useState} from "react";
 import {BurgerIngridientsItem} from "./burger-ingridients-item";
-
 import ingridientsStyle from './burger-ingridients.module.css'
 import {BurgerIngridientsTabs} from "./burger-ingridients-tabs";
-import {BurgerConstructorContext} from "../../services/burger-constructor-context";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllIngredients} from "../../services/selectors/burger-ingredients";
+import {addIngredient} from "../../services/actions/burger-constructor";
 
 export const BurgerIngridients = () => {
-    const ingridientsData = useContext(BurgerConstructorContext)
+    const dispatch = useDispatch()
+    const ingredientsData = useSelector(getAllIngredients)
+
     const [current, setCurrent] = useState('bun')
-    const [buns] = useState(
-        ingridientsData.filter((bunItem) => bunItem.type === 'bun')
-    )
-    const [sauce] = useState(
-        ingridientsData.filter((sauceItem) => sauceItem.type === 'sauce')
-    )
-    const [main] = useState(
-        ingridientsData.filter((mainItem) => mainItem.type === 'main')
-    )
+    const [buns, setBuns] = useState([])
+    const [sauce, setSauce] = useState([])
+    const [main, setMain] = useState([])
+
+    useEffect(() => {
+        if (ingredientsData) {
+            setBuns(ingredientsData.filter((bunItem) => bunItem.type === 'bun'))
+            setSauce(ingredientsData.filter((sauceItem) => sauceItem.type === 'sauce'))
+            setMain(ingredientsData.filter((mainItem) => mainItem.type === 'main'))
+        }
+    }, [ingredientsData])
 
     return (
         <div>

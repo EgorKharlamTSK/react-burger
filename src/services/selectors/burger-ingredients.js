@@ -1,0 +1,1 @@
+export const getAllIngredients = state => state.allIngredients.ingredients

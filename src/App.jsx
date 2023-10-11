@@ -5,32 +5,35 @@ import {BurgerIngridients} from "./components/burgeringredients/burger-ingridien
 import {BurgerConstructor} from "./components/burgerconstructor/burger-constructor";
 import {getIngredients} from "./utils/api";
 import {BurgerConstructorContext} from "./services/burger-constructor-context";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllIngredients} from "./services/actions/all-ingredients";
 
 function App() {
     const [fetchData, setFetchData] = useState([])
-    const [dataIsLoading, setDataIsLoading] = useState(true)
+    const [dataIsLoadingInFront, setDataIsLoading] = useState(true)
+    const dispatch = useDispatch()
+    const dataIsLoading = useSelector(state => state.allIngredients.isLoading)
 
     useEffect(() => {
-       getIngredients()
-            .then(setFetchData)
-            .catch(er => console.log("Ошибка загрузки данных " + er))
-            .finally(() => setDataIsLoading(false))
-    }, []);
+        setDataIsLoading(dataIsLoading)
+    }, [dataIsLoading]);
+
+    useEffect(() => {
+        dispatch(getAllIngredients())
+    }, [dispatch]);
 
   return (
     <div className="App">
       <AppHeader />
-        {dataIsLoading ? (
+        {dataIsLoadingInFront ? (
             <main className='mt-10'>
                 <p>Ожидайте загрузки ингридиентов</p>
             </main>
             ) : (
-           <BurgerConstructorContext.Provider value={fetchData}>
-                <main className='mt-10'>
-                    <BurgerIngridients />
-                    <BurgerConstructor />
-                </main>
-           </BurgerConstructorContext.Provider>
+            <main className='mt-10'>
+                <BurgerIngridients />
+                <BurgerConstructor />
+            </main>
         )}
     </div>
   );

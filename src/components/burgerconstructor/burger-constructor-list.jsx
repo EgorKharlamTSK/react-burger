@@ -3,24 +3,32 @@ import styles from './burger-constructor.module.css'
 import {useContext, useEffect, useReducer, useState} from "react";
 import {BurgerConstructorContext} from "../../services/burger-constructor-context";
 import PropTypes from "prop-types";
+import {useDispatch, useSelector} from "react-redux";
+import {getConstructorIngredients} from "../../services/selectors/burger-constructor";
+import {deleteIngredient} from "../../services/actions/burger-constructor";
 
 export const BurgerConstructorList = ({setSum, setAllIngridients}) => {
-    const data = useContext(BurgerConstructorContext)
+    const dispatch = useDispatch()
+    const data = useSelector(getConstructorIngredients)
     const [firstItem, setFirstItem] = useState(null)
     const [lastItem, setLastItem] = useState(null)
     const [price, setPrice] = useReducer(sumReducer, 0);
     function sumReducer(sum, action){
         if (action.type === 'countTotalPrice'){
-            let totalSum = 0;
-            totalSum += firstItem.price;
-            totalSum += lastItem.price;
-            data.forEach(item => {
-                if (item.type !== 'bun') {
-                    totalSum += item.price;
-                }
-            });
-            return totalSum
+            // let totalSum = 0;
+            // totalSum += firstItem.price;
+            // totalSum += lastItem.price;
+            // data.forEach(item => {
+            //     if (item.type !== 'bun') {
+            //         totalSum += item.price;
+            //     }
+            // });
+            return 0
         }
+    }
+
+    const deleteIngredientFromFront = (ingredient) => {
+        dispatch(deleteIngredient(ingredient))
     }
 
     useEffect(() => {
@@ -47,7 +55,7 @@ export const BurgerConstructorList = ({setSum, setAllIngridients}) => {
                 arrayOfIdsItems.push(item._id)
             }
         });
-        setAllIngridients([...arrayOfIdsItems])
+        // setAllIngridients([...arrayOfIdsItems])
     }, [data, firstItem, lastItem]);
 
     return (
@@ -67,10 +75,12 @@ export const BurgerConstructorList = ({setSum, setAllIngridients}) => {
                     data.map((item) => {
                         if (item.type !== 'bun') {
                             return <ConstructorElement
-                                key={item._id}
+                                key={item.uniqId}
                                 text={item.name}
                                 price={item.price}
                                 thumbnail={item.image_mobile}
+                                handleClose={() => deleteIngredientFromFront(item)}
+                                onClick={() => console.log('oke')}
                             />
                         }
                     }) : null
@@ -92,5 +102,4 @@ export const BurgerConstructorList = ({setSum, setAllIngridients}) => {
 
 BurgerConstructorList.propTypes = {
     setSum: PropTypes.func.isRequired,
-    setAllIngridients:  PropTypes.func.isRequired
 }

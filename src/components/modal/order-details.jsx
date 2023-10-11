@@ -1,15 +1,15 @@
 import {Modal} from "./modal";
 import orderComplete from "../../images/done.png";
 import PropTypes from "prop-types";
-import {useContext} from "react";
-import {OrderNumberContext} from "../../services/burger-constructor-context";
+import {useSelector} from "react-redux";
 
 export const OrderDetailsModal = ({handleModal}) => {
-    const orderNumber = useContext(OrderNumberContext)
+    const data = useSelector(state => state.orderInfo)
+    console.log(data)
     return(
         <Modal closeModal={handleModal}>
             <p className="text text_type_digits-large mt-20 mb-8">
-                {orderNumber}
+                {/*{orderNumber}*/}
             </p>
             <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
             <img src={orderComplete} alt="orderComplete"/>
