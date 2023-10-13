@@ -1,6 +1,6 @@
 import {
     ADD_INGREDIENT,
-    DELETE_INGREDIENT,
+    DELETE_INGREDIENT, GET_INGREDIENTS_COUNTER,
     REORDER_INGREDIENT,
     RESET_INGREDIENT,
     SUM_INGREDIENTS
@@ -8,7 +8,8 @@ import {
 
 const initialState = {
     constructorIngredients: [],
-    sum: null
+    sum: null,
+    listOfCounterIngredients: []
 }
 
 export const constructorReducer = (state = initialState, action) => {
@@ -28,6 +29,9 @@ export const constructorReducer = (state = initialState, action) => {
         }
         case RESET_INGREDIENT: {
             return {...state, constructorIngredients: [...state.constructorIngredients, action.payload]}
+        }
+        case GET_INGREDIENTS_COUNTER: {
+            return {...state, listOfCounterIngredients: action.payload}
         }
         default: {
             return state

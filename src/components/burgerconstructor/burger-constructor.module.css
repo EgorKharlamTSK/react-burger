@@ -23,11 +23,22 @@
     height: 73vh;
 }
 
+.general_burger_constructor > *{
+    align-self: center;
+}
+
 .middle_burger_constructor{
     display: flex;
+    position: relative;
     flex-direction: column;
     gap: 10px;
     overflow-y: auto;
     height: 80vh;
     min-height: 80px;
+}
+
+.middle_burger_constructor_item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

@@ -22,23 +22,8 @@ export const BurgerConstructor = () => {
         setIsOpenModal(!isOpenModal);
     };
 
-    const [{isHover}, dropTarget] = useDrop({
-        accept: "ingredient",
-        drop(item) {
-            handleDrop(item)
-        },
-        collect: monitor => ({
-            isHover: monitor.isOver(),
-        })
-    });
-
-    const handleDrop = (item) => {
-        dispatch(addIngredient(item))
-    };
-
-
     return (
-        <div className={`ml-10 pr-4`} ref={dropTarget}>
+        <div className={`ml-10 pr-4`}>
             <BurgerConstructorList />
             <div className={`${styles.footer_constructor} mt-10`}>
                 <div className={`${styles.price} mr-10`}>
