@@ -1,7 +1,14 @@
-import {ADD_INGREDIENT, DELETE_INGREDIENT, REORDER_INGREDIENT, RESET_INGREDIENT} from "../actions/burger-constructor";
+import {
+    ADD_INGREDIENT,
+    DELETE_INGREDIENT,
+    REORDER_INGREDIENT,
+    RESET_INGREDIENT,
+    SUM_INGREDIENTS
+} from "../actions/burger-constructor";
 
 const initialState = {
-    constructorIngredients: []
+    constructorIngredients: [],
+    sum: null
 }
 
 export const constructorReducer = (state = initialState, action) => {
@@ -11,6 +18,10 @@ export const constructorReducer = (state = initialState, action) => {
         }
         case DELETE_INGREDIENT: {
             return {...state, constructorIngredients: state.constructorIngredients.filter(({uniqId}) => uniqId !== action.payload)}
+        }
+        case SUM_INGREDIENTS: {
+            const totalSum = action.payload ? action.payload.reduce((acc, item) => acc + item.price, 0) : 0;
+            return {...state, sum: totalSum}
         }
         case REORDER_INGREDIENT: {
             return {...state, constructorIngredients: [...state.constructorIngredients, action.payload]}

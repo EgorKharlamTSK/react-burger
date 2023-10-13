@@ -1,20 +1,32 @@
 import styles from './burger-ingridients.module.css'
 import tabStyle from "./burger-ingridients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useEffect, useState} from "react";
+import {forwardRef, useCallback, useEffect, useState} from "react";
 import {BurgerIngredientsItemType} from '../../utils/props-types'
 import {IngredientDetailsModal} from "../modal/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
 import {addIngredient} from "../../services/actions/burger-constructor";
 import {showIngredientInfo} from "../../services/selectors/current-ingredient-info";
 import {hideIngredientIfoModal, showIngredientIfoModal} from "../../services/actions/current-ingredient";
+import {useDrag} from "react-dnd";
 
-export const BurgerIngridientsItem = ({title, data}) => {
+export const BurgerIngridientsItem = forwardRef(({title, data}, ref) => {
     const dispatch = useDispatch()
     const selectedItem = useSelector(showIngredientInfo)
     const [count, setCounter] = useState(0)
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [selectedItem1, setSelectedItem] = useState(null)
+    const [itemForDrag, setItemForDrag] = useState(null)
+
+    const [{ isDragging }, dragRef] = useDrag(() => ({
+        type: "ingredient",
+        item: itemForDrag,
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    }))
+
+
     const handleModal = (item) => {
         dispatch(showIngredientIfoModal(item))
         setSelectedItem(item)
@@ -32,23 +44,19 @@ export const BurgerIngridientsItem = ({title, data}) => {
     }
 
     return (
-        <div className={`${styles.card}`}>
+        <div className={`${styles.card}`} ref={ref}>
             <p className="text text_type_main-medium mb-6">
                 {title}
             </p>
             <div className={`${styles.ingredients_item}`}>
                 {data.length > 0 ? (
                     (data?.map((item) => {
-                        return <div className={`${tabStyle.tabItem} mt-6 mb-10`} key={item._id}>
+                        return <div ref={dragRef} className={`${tabStyle.tabItem} mt-6 mb-10`} key={item._id}>
                             <button
                                 key={item._id}
                                 className={`${tabStyle.btn}`}
-                                // onClick={() => {
-                                //         setCounter(count + 1)
-                                //         handleModal(item)
-                                //     }
-                                // }
                                 onClick={() => addIngredientToConstruct(item)}
+                                onMouseDown={() => setItemForDrag(item)}
                             >
                                 <img
                                     src={`${item.image}`}
@@ -80,6 +88,6 @@ export const BurgerIngridientsItem = ({title, data}) => {
             )}
         </div>
     )
-}
+})
 
 BurgerIngridientsItem.propTypes = BurgerIngredientsItemType

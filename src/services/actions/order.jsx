@@ -1,9 +1,8 @@
 import {URL} from "../../utils/constants";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST"
-export  const GET_ORDER_REQUEST_SUCCESS = "GET_ORDER_REQUEST_SUCCESS"
-export  const GET_ORDER_REQUEST_FALIURE = "GET_ORDER_REQUEST_FALIURE"
-
+export const GET_ORDER_REQUEST_SUCCESS = "GET_ORDER_REQUEST_SUCCESS"
+export const GET_ORDER_REQUEST_FALIURE = "GET_ORDER_REQUEST_FALIURE"
 export const getOrders = (allIngredients) => (dispatch) => {
     dispatch({type: GET_ORDER_REQUEST})
     fetch(`${URL}/orders`, {
@@ -23,7 +22,7 @@ export const getOrders = (allIngredients) => (dispatch) => {
             }
         })
         .then((data) => {
-            dispatch({type: GET_ORDER_REQUEST_SUCCESS, payload: data.data})
+            dispatch({type: GET_ORDER_REQUEST_SUCCESS, payload: data})
         })
         .catch((error) => {
             console.log(error.message)

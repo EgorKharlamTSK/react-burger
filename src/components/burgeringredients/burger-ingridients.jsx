@@ -2,18 +2,38 @@ import {useEffect, useState} from "react";
 import {BurgerIngridientsItem} from "./burger-ingridients-item";
 import ingridientsStyle from './burger-ingridients.module.css'
 import {BurgerIngridientsTabs} from "./burger-ingridients-tabs";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {getAllIngredients} from "../../services/selectors/burger-ingredients";
-import {addIngredient} from "../../services/actions/burger-constructor";
+import { useInView } from 'react-intersection-observer';
 
 export const BurgerIngridients = () => {
-    const dispatch = useDispatch()
     const ingredientsData = useSelector(getAllIngredients)
 
     const [current, setCurrent] = useState('bun')
     const [buns, setBuns] = useState([])
     const [sauce, setSauce] = useState([])
     const [main, setMain] = useState([])
+
+    const [refBun, inViewBun] = useInView({
+        triggerOnce: false,
+    });
+    const [refSauce, inViewSauce] = useInView({
+        triggerOnce: false,
+    });
+    const [refMain, inViewMain] = useInView({
+        triggerOnce: false,
+    });
+
+    useEffect(() => {
+        const sections = ['bun', 'sauce', 'main'];
+        const inView = [inViewBun, inViewSauce, inViewMain];
+        for (let i = 0; i < sections.length; i++) {
+            if (inView[i]) {
+                setCurrent(sections[i]);
+                break;
+            }
+        }
+    }, [inViewBun, inViewSauce, inViewMain]);
 
     useEffect(() => {
         if (ingredientsData) {
@@ -33,14 +53,17 @@ export const BurgerIngridients = () => {
                 <BurgerIngridientsItem
                     title='Булки'
                     data={buns}
+                    ref={refBun}
                 />
                 <BurgerIngridientsItem
                     title='Соусы'
                     data={sauce}
+                    ref={refSauce}
                 />
                 <BurgerIngridientsItem
                     title='Начинки'
                     data={main}
+                    ref={refMain}
                 />
             </div>
         </div>
