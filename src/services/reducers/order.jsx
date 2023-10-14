@@ -1,4 +1,4 @@
-import {GET_ORDER_REQUEST, GET_ORDER_REQUEST_FALIURE, GET_ORDER_REQUEST_SUCCESS, SUM_ORDER} from "../actions/order";
+import {GET_ORDER_REQUEST, GET_ORDER_REQUEST_FALIURE, GET_ORDER_REQUEST_SUCCESS} from "../actions/order";
 
 const initialState = {
     orderInfo: [],

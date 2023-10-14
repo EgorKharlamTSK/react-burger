@@ -5,6 +5,7 @@ import {
     RESET_INGREDIENT,
     SUM_INGREDIENTS
 } from "../actions/burger-constructor";
+import update from "immutability-helper";
 
 const initialState = {
     constructorIngredients: [],
@@ -25,10 +26,16 @@ export const constructorReducer = (state = initialState, action) => {
             return {...state, sum: totalSum}
         }
         case REORDER_INGREDIENT: {
-            return {...state, constructorIngredients: [...state.constructorIngredients, action.payload]}
+            const newIngredients = update(state.constructorIngredients, {
+                $splice: [
+                    [action.payload.from, 1],
+                    [action.payload.to, 0, state.constructorIngredients[action.payload.from]],
+                ],
+            });
+            return {...state, constructorIngredients: newIngredients}
         }
         case RESET_INGREDIENT: {
-            return {...state, constructorIngredients: [...state.constructorIngredients, action.payload]}
+            return initialState
         }
         case GET_INGREDIENTS_COUNTER: {
             return {...state, listOfCounterIngredients: action.payload}

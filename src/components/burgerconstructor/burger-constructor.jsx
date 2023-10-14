@@ -6,8 +6,6 @@ import { OrderDetailsModal} from "../modal/order-details";
 import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients, getSumOfOrder} from "../../services/selectors/burger-constructor";
 import {getOrders} from "../../services/actions/order";
-import {addIngredient} from "../../services/actions/burger-constructor";
-import {useDrop} from "react-dnd";
 
 export const BurgerConstructor = () => {
     const dispatch = useDispatch()
@@ -23,7 +21,7 @@ export const BurgerConstructor = () => {
     };
 
     return (
-        <div className={`ml-10 pr-4`}>
+        <div className={`ml-10 pr-4 ${styles.parent_div_of_constructor}`}>
             <BurgerConstructorList />
             <div className={`${styles.footer_constructor} mt-10`}>
                 <div className={`${styles.price} mr-10`}>

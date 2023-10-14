@@ -11,3 +11,4 @@ export const addIngredient = (ingredient) => ({type: ADD_INGREDIENT, payload: {.
 export const deleteIngredient = (ingredient) => ({type: DELETE_INGREDIENT, payload: ingredient.uniqId})
 export const checkSum = (data) => ({type: SUM_INGREDIENTS, payload: data})
 export const ingredientsCounter = (listOfIngredients) => ({type: GET_INGREDIENTS_COUNTER, payload: listOfIngredients})
+export const reorderIngridients = (dragIndex, hoverIndex) => ({type: REORDER_INGREDIENT, payload: {from: dragIndex, to: hoverIndex}})

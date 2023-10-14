@@ -1,12 +1,11 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css'
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients} from "../../services/selectors/burger-constructor";
 import {addIngredient, checkSum, deleteIngredient, ingredientsCounter} from "../../services/actions/burger-constructor";
 import {useDrop} from "react-dnd";
 import {BurgerConstructorMiddleElement} from "./burger-constructor-middle-element";
-import update from 'immutability-helper'
 
 export const BurgerConstructorList = () => {
     const dispatch = useDispatch()
@@ -15,7 +14,6 @@ export const BurgerConstructorList = () => {
 
     const [firstItem, setFirstItem] = useState(null)
     const [lastItem, setLastItem] = useState(null)
-    const [cards, setCards] = useState(null)
 
     useEffect(() => {
         dispatch(checkSum(data))
@@ -75,17 +73,6 @@ export const BurgerConstructorList = () => {
         dispatch(deleteIngredient(ingredient))
     }
 
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
-        setCards((prevCards) =>
-            update(prevCards, {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, prevCards[dragIndex]],
-                ],
-            }),
-        )
-    }, [])
-
     return (
         <div className={`${styles.general_burger_constructor} pt-25`} ref={dropTarget}>
             {firstItem &&(
@@ -100,9 +87,10 @@ export const BurgerConstructorList = () => {
             )}
             <div className={styles.middle_burger_constructor} ref={dropTarget}>
                 {data?.length > 0 ?
-                    data.map((item) => {
-                        if (item.type !== 'bun') {
-                            return <BurgerConstructorMiddleElement item={item} moveCard={moveCard} deleteIngredientFromFront={deleteIngredientFromFront}/>
+                    data.map((item, index) => {
+                        const currentItem = item.ingredient ? item.ingredient : item;
+                        if (currentItem.type !== 'bun') {
+                            return <BurgerConstructorMiddleElement key={currentItem.uniqId + index.toString()} index={index}  ingredient={currentItem} deleteIngredientFromFront={deleteIngredientFromFront}/>
                         }
                     }) : null
                 }

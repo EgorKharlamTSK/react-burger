@@ -4,10 +4,10 @@ import {useDrag} from "react-dnd";
 import {hideIngredientIfoModal} from "../../services/actions/current-ingredient";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import PropTypes from "prop-types";
 
 export const BurgerIngredientsButton = ({isOpenModal, item, handleModal}) => {
     const dispatch = useDispatch()
-    const count = 0;
     const counter = useSelector(state => state.constructorReducer.listOfCounterIngredients)
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: "ingredient",
@@ -56,4 +56,10 @@ export const BurgerIngredientsButton = ({isOpenModal, item, handleModal}) => {
             </p>
         </div>
     )
+}
+
+BurgerIngredientsButton.propTypes = {
+    isOpenModal: PropTypes.bool,
+    item: PropTypes.object,
+    handleModal: PropTypes.func
 }
