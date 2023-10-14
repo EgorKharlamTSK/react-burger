@@ -1,6 +1,6 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css'
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients} from "../../services/selectors/burger-constructor";
 import {addIngredient, checkSum, deleteIngredient, ingredientsCounter} from "../../services/actions/burger-constructor";
@@ -9,22 +9,22 @@ import {BurgerConstructorMiddleElement} from "./burger-constructor-middle-elemen
 
 export const BurgerConstructorList = () => {
     const dispatch = useDispatch()
-    const data = useSelector(getConstructorIngredients)
-    const ingredientCounts = data.reduce((acc, item) => ({...acc, [item._id]: (acc[item._id] || 0) + 1}), [])
+    const ingredientsFromConstructor = useSelector(getConstructorIngredients)
+    const ingredientCounts = useMemo(() => ingredientsFromConstructor.reduce((acc, item) => ({...acc, [item._id]: (acc[item._id] || 0) + 1}), []), [ingredientsFromConstructor])
 
     const [firstItem, setFirstItem] = useState(null)
     const [lastItem, setLastItem] = useState(null)
 
     useEffect(() => {
-        dispatch(checkSum(data))
-    }, [data, dispatch]);
+        dispatch(checkSum(ingredientsFromConstructor))
+    }, [ingredientsFromConstructor, dispatch]);
 
     useEffect(() => {
         dispatch(ingredientsCounter(ingredientCounts))
     }, [ingredientCounts, dispatch]);
 
     useEffect(() => {
-        const buns = data.find(item => item.type === 'bun')
+        const buns = ingredientsFromConstructor.find(item => item.type === 'bun')
         if (buns) {
             setFirstItem({
                 ...buns,
@@ -35,7 +35,7 @@ export const BurgerConstructorList = () => {
                 name: buns.name + ' (низ)'
             })
         }
-    }, [data])
+    }, [ingredientsFromConstructor])
 
     const [{isHover}, dropTarget] = useDrop({
         accept: "ingredient",
@@ -48,7 +48,7 @@ export const BurgerConstructorList = () => {
     });
 
     const handleDrop = (item) => {
-        const bunsInData = data.filter(i => i.type === 'bun')
+        const bunsInData = ingredientsFromConstructor.filter(i => i.type === 'bun')
         const removeCurrentBunsAndAddNew = () => {
             dispatch(deleteIngredient(bunsInData[0]))
             dispatch(deleteIngredient(bunsInData[1]))
@@ -86,11 +86,11 @@ export const BurgerConstructorList = () => {
                 />
             )}
             <div className={styles.middle_burger_constructor} ref={dropTarget}>
-                {data?.length > 0 ?
-                    data.map((item, index) => {
+                {ingredientsFromConstructor?.length > 0 ?
+                    ingredientsFromConstructor.map((item, index) => {
                         const currentItem = item.ingredient ? item.ingredient : item;
                         if (currentItem.type !== 'bun') {
-                            return <BurgerConstructorMiddleElement key={currentItem.uniqId + index.toString()} index={index}  ingredient={currentItem} deleteIngredientFromFront={deleteIngredientFromFront}/>
+                            return <BurgerConstructorMiddleElement key={currentItem.uniqId} index={index}  ingredient={currentItem} deleteIngredientFromFront={deleteIngredientFromFront}/>
                         }
                     }) : null
                 }

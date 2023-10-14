@@ -7,7 +7,7 @@ import {showIngredientInfo} from "../../services/selectors/current-ingredient-in
 import {showIngredientIfoModal} from "../../services/actions/current-ingredient";
 import {BurgerIngredientsButton} from "./burger-ingredients-button";
 
-export const BurgerIngridientsItem = forwardRef(({title, data}, ref) => {
+export const BurgerIngredientsItem = forwardRef(({title, data}, ref) => {
     const dispatch = useDispatch()
     const selectedItem = useSelector(showIngredientInfo)
     const [isOpenModal, setIsOpenModal] = useState(false);
@@ -23,7 +23,7 @@ export const BurgerIngridientsItem = forwardRef(({title, data}, ref) => {
                 {title}
             </p>
             <div className={`${styles.ingredients_item}`}>
-                {data.length > 0 ? (
+                {data.length && (
                     (data?.map((item) => {
                         return <BurgerIngredientsButton
                             key={item._id}
@@ -34,7 +34,7 @@ export const BurgerIngridientsItem = forwardRef(({title, data}, ref) => {
                             isOpenModal={isOpenModal}
                         />
                     }))
-                ) : null}
+                )}
             </div>
             {isOpenModal && selectedItem && (
                 <IngredientDetailsModal
@@ -46,4 +46,4 @@ export const BurgerIngridientsItem = forwardRef(({title, data}, ref) => {
     )
 })
 
-BurgerIngridientsItem.propTypes = BurgerIngredientsItemType
+BurgerIngredientsItem.propTypes = BurgerIngredientsItemType

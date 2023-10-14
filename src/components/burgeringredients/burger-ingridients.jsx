@@ -1,18 +1,19 @@
-import {useEffect, useState} from "react";
-import {BurgerIngridientsItem} from "./burger-ingridients-item";
-import ingridientsStyle from './burger-ingridients.module.css'
-import {BurgerIngridientsTabs} from "./burger-ingridients-tabs";
+import {useEffect, useMemo, useState} from "react";
+import {BurgerIngredientsItem} from "./burger-ingridients-item";
+import ingredientsStyle from './burger-ingridients.module.css'
+import {BurgerIngredientsTabs} from "./burger-ingridients-tabs";
 import {useSelector} from "react-redux";
 import {getAllIngredients} from "../../services/selectors/burger-ingredients";
 import { useInView } from 'react-intersection-observer';
 
-export const BurgerIngridients = () => {
+export const BurgerIngredients = () => {
     const ingredientsData = useSelector(getAllIngredients)
 
     const [current, setCurrent] = useState('bun')
-    const [buns, setBuns] = useState([])
-    const [sauce, setSauce] = useState([])
-    const [main, setMain] = useState([])
+
+    const buns = useMemo(() => ingredientsData ? ingredientsData.filter(bunItem => bunItem.type === 'bun') : [], [ingredientsData]);
+    const sauce = useMemo(() => ingredientsData ? ingredientsData.filter(sauceItem => sauceItem.type === 'sauce') : [], [ingredientsData]);
+    const main = useMemo(() => ingredientsData ? ingredientsData.filter(mainItem => mainItem.type === 'main') : [], [ingredientsData]);
 
     const [refBun, inViewBun] = useInView({
         triggerOnce: false,
@@ -27,40 +28,28 @@ export const BurgerIngridients = () => {
     useEffect(() => {
         const sections = ['bun', 'sauce', 'main'];
         const inView = [inViewBun, inViewSauce, inViewMain];
-        for (let i = 0; i < sections.length; i++) {
-            if (inView[i]) {
-                setCurrent(sections[i]);
-                break;
-            }
-        }
+        const inViewIndex = inView.findIndex(isVisible => isVisible)
+        if (inViewIndex !== -1) setCurrent(sections[inViewIndex])
     }, [inViewBun, inViewSauce, inViewMain]);
-
-    useEffect(() => {
-        if (ingredientsData) {
-            setBuns(ingredientsData.filter((bunItem) => bunItem.type === 'bun'))
-            setSauce(ingredientsData.filter((sauceItem) => sauceItem.type === 'sauce'))
-            setMain(ingredientsData.filter((mainItem) => mainItem.type === 'main'))
-        }
-    }, [ingredientsData])
 
     return (
         <div>
             <p className="text text_type_main-large mb-5">
                 Соберите бургер
             </p>
-            <BurgerIngridientsTabs current={current} setCurrent={setCurrent}/>
-            <div className={`${ingridientsStyle.ingredients_list}`}>
-                <BurgerIngridientsItem
+            <BurgerIngredientsTabs current={current} setCurrent={setCurrent}/>
+            <div className={`${ingredientsStyle.ingredients_list}`}>
+                <BurgerIngredientsItem
                     title='Булки'
                     data={buns}
                     ref={refBun}
                 />
-                <BurgerIngridientsItem
+                <BurgerIngredientsItem
                     title='Соусы'
                     data={sauce}
                     ref={refSauce}
                 />
-                <BurgerIngridientsItem
+                <BurgerIngredientsItem
                     title='Начинки'
                     data={main}
                     ref={refMain}

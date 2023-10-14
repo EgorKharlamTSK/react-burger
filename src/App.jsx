@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {AppHeader} from "./components/appheader/app-header";
-import {BurgerIngridients} from "./components/burgeringredients/burger-ingridients";
+import {BurgerIngredients} from "./components/burgeringredients/burger-ingridients";
 import {BurgerConstructor} from "./components/burgerconstructor/burger-constructor";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllIngredients} from "./services/actions/all-ingredients";
@@ -31,7 +31,7 @@ function App() {
                 </main>
                 ) : (
                 <main className='mt-10'>
-                        <BurgerIngridients />
+                        <BurgerIngredients />
                         <BurgerConstructor />
                 </main>
             )}
