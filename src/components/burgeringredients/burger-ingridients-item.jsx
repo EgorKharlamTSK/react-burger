@@ -1,64 +1,49 @@
 import styles from './burger-ingridients.module.css'
-import tabStyle from "./burger-ingridients.module.css";
-import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {forwardRef, useCallback, useEffect, useState} from "react";
 import {BurgerIngredientsItemType} from '../../utils/props-types'
 import {IngredientDetailsModal} from "../modal/ingredient-details";
+import {useDispatch, useSelector} from "react-redux";
+import {showIngredientInfo} from "../../services/selectors/current-ingredient-info";
+import {showIngredientIfoModal} from "../../services/actions/current-ingredient";
+import {BurgerIngredientsButton} from "./burger-ingredients-button";
 
-export const BurgerIngridientsItem = ({title, data}) => {
-    const [count, setCounter] = useState(0)
+export const BurgerIngredientsItem = forwardRef(({title, data}, ref) => {
+    const dispatch = useDispatch()
+    const selectedItem = useSelector(showIngredientInfo)
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null)
-
+    const [selectedItem1, setSelectedItem] = useState(null)
     const handleModal = (item) => {
+        dispatch(showIngredientIfoModal(item))
         setSelectedItem(item)
         setIsOpenModal(!isOpenModal);
     };
-
     return (
-        <div className={`${styles.card}`}>
+        <div className={`${styles.card}`} ref={ref}>
             <p className="text text_type_main-medium mb-6">
                 {title}
             </p>
             <div className={`${styles.ingredients_item}`}>
-                {data.length > 0 ? (
+                {data.length && (
                     (data?.map((item) => {
-                        return <div className={`${tabStyle.tabItem} mt-6 mb-10`} key={item._id}>
-                            <button
-                                key={item._id}
-                                className={`${tabStyle.btn}`}
-                                onClick={() => {
-                                        setCounter(count + 1)
-                                        handleModal(item)
-                                    }
-                                }
-                            >
-                                <img
-                                    src={`${item.image}`}
-                                    alt={item.name}
-                                />
-                                {count !== 0 && (
-                                    <Counter count={count} />
-                                )}
-                            </button>
-                            <div className={`${tabStyle.item_price} mt-1 mb-1`}>
-                                <p className="text text_type_digits-default">
-                                    {item.price}
-                                </p>
-                                <CurrencyIcon type="primary" />
-                            </div>
-                            <p className={` ${tabStyle.text} text text_type_main-small mb-4`}>
-                                {item.name}
-                            </p>
-                        </div>
+                        return <BurgerIngredientsButton
+                            key={item._id}
+                            item={item}
+                            setSelectedItem={setSelectedItem}
+                            setIsOpenModal={setIsOpenModal}
+                            handleModal={handleModal}
+                            isOpenModal={isOpenModal}
+                        />
                     }))
-                ) : null}
+                )}
             </div>
             {isOpenModal && selectedItem && (
-                <IngredientDetailsModal handleModal={handleModal}  selectedItem={selectedItem}/>
+                <IngredientDetailsModal
+                    handleModal={handleModal}
+                    selectedItem={selectedItem1}
+                />
             )}
         </div>
     )
-}
+})
 
-BurgerIngridientsItem.propTypes = BurgerIngredientsItemType
+BurgerIngredientsItem.propTypes = BurgerIngredientsItemType

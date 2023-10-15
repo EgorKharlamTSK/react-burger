@@ -17,3 +17,22 @@ export const getIngredients = () => {
             return Promise.reject(data)
         });
 };
+
+export const getOrders = (allIngridients) => {
+    return fetch(`${URL}/orders`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "ingredients": allIngridients
+            })
+        })
+        .then(handleResponse)
+        .then((data) => {
+            if (data?.success) {
+                return data;
+            }
+            return Promise.reject(data)
+        });
+}

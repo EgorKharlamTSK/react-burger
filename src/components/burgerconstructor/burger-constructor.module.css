@@ -3,6 +3,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .price{
@@ -15,18 +18,44 @@
     height: 80% !important;
 }
 
+.parent_div_of_constructor{
+    position: relative;
+}
+
 .general_burger_constructor{
     display: flex;
     flex-direction: column;
     gap: 10px;
     overflow-y: auto;
-    height: 73vh;
+    max-height: 80%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.general_burger_constructor > *{
+    align-self: center;
 }
 
 .middle_burger_constructor{
     display: flex;
+    position: relative;
     flex-direction: column;
     gap: 10px;
     overflow-y: auto;
-    height: 80vh;
+    max-height: 80%;
+}
+
+.middle_burger_constructor_item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.middle_burger_constructor_item {
+    cursor: grab;
+}
+
+.general_burger_constructor div {
+    flex-grow: 0!important;
 }

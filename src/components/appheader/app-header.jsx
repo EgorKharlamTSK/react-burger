@@ -14,20 +14,17 @@ export const AppHeader = () => {
                     <AppHeaderButton
                         text="Конструктор"
                         icon={<BurgerIcon type={hoverConstr ? 'primary' : 'secondary'} />}
-                        // setHover={setHoverConstr}
                     />
 
                     <AppHeaderButton
                         text="Лента заказов"
                         icon={<ListIcon type={hoverList ? 'primary' : 'secondary'} />}
-                        // setHover={setHoverList}
                     />
                 </nav>
                 <Logo className='-m-l-5' />
                 <AppHeaderButton
                     text="Личный камбинет"
                     icon={<ProfileIcon type={hoverLk ? 'primary' : 'secondary'} />}
-                    // setHover={setHoverLk}
                 />
             </div>
         </header>
