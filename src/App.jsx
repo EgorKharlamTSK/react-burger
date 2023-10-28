@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllIngredients} from "./services/actions/all-ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {BrowserRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate} from "react-router-dom";
 import {Login} from "./pages/Public/login/login";
 import {Register} from "./pages/Public/register/register";
 import {ForgotPassword} from "./pages/Public/forgotpassword/forgot-password";
@@ -44,29 +44,11 @@ function App() {
 function MainRoute({ wasInForgotPass, dataIsLoadingInFront }) {
     const location = useLocation()
     const state = location.state || {}
-    const dispatch = useDispatch()
     const selectedItem = useSelector(showIngredientInfo)
-    const [isOpenModal, setIsOpenModal] = useState(false);
-    const [ingredientInModal, setIngredientInModal] = useState()
-    const handleModal = (item) => {
-        dispatch(showIngredientIfoModal(item))
-        setIsOpenModal(!isOpenModal);
-    }
-
+    const [modalIsOpen, setModalIsOpen] = useState(false)
     useEffect(() => {
-        setIngredientInModal(selectedItem[0])
-    }, [selectedItem])
-
-    useEffect(() => {
-        if (!isOpenModal){
-            dispatch(hideIngredientIfoModal())
-        }
-    }, [isOpenModal])
-
-    useEffect(() => {
-        console.log(location)
-    }, [location]);
-
+        setModalIsOpen(true)
+    }, [selectedItem]);
 
     return (
         <>
@@ -77,7 +59,7 @@ function MainRoute({ wasInForgotPass, dataIsLoadingInFront }) {
                 <Route path="/forgot-password" element={<PublicRoute element={<ForgotPassword />} />} />
                 <Route path="/reset-password" element={wasInForgotPass ? <ResetPassword /> : <Navigate to="/login" />} />
                 <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
-                <Route path="/ingredients/:id" element={<BurgerIngredientPage selectedItem={selectedItem[0]} />} />
+                <Route path="/ingredients/:id" element={<BurgerIngredientPage />} />
                 <Route path="/" element={
                     <ProtectedRouteElement
                         element={
@@ -97,7 +79,7 @@ function MainRoute({ wasInForgotPass, dataIsLoadingInFront }) {
                     <Route
                         path="/ingredients/:id"
                         element={
-                            isOpenModal && <IngredientDetailsModal handleModal={handleModal} selectedItem={ingredientInModal} />
+                            modalIsOpen && <IngredientDetailsModal />
                         }
                     />
                 </Routes>

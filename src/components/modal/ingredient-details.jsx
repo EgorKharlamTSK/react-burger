@@ -1,34 +1,59 @@
 import {IngredientsModalTable} from "../burgeringredients/ingredients-modal-table";
 import {Modal} from "./modal";
 import PropTypes from "prop-types";
+import {useCallback, useEffect, useState} from "react";
+import {hideIngredientIfoModal, showIngredientIfoModal} from "../../services/actions/current-ingredient";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {showIngredientInfo} from "../../services/selectors/current-ingredient-info";
 
-export const IngredientDetailsModal = ({handleModal, selectedItem, isOpenModal}) => {
+export const IngredientDetailsModal = ({}) => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+    const selectedItem = useSelector(showIngredientInfo)
+    const [ingredientInModal, setIngredientInModal] = useState()
+    const [isOpenModal, setIsOpenModal] = useState(false);
 
     useEffect(() => {
-        if(selectedItem){
-            handleModal(selectedItem)
-        }
+        setIngredientInModal(selectedItem[0])
     }, [selectedItem])
 
+    const handleModal = useCallback((selectedItem) => {
+        dispatch(showIngredientIfoModal(selectedItem))
+        setIsOpenModal(!isOpenModal);
+    }, [selectedItem])
 
-    const onDismiss = () => {
-        navigate(-1)
-    }
+    useEffect(() => {
+        if (!isOpenModal){
+            navigate(-1)
+            dispatch(hideIngredientIfoModal())
+        }
+    }, [dispatch, isOpenModal])
+
+    useEffect(() => {
+        if(ingredientInModal){
+            handleModal(ingredientInModal)
+        }
+    }, [ingredientInModal])
+
 
     return(
-        <Modal closeModal={onDismiss} title='Детали ингридиента'>
-            <img
-                className={`mt-15`}
-                src={`${selectedItem.image_large}`}
-                alt={selectedItem.name}
-            />
-            <p className="text text_type_main-medium mt-4 mb-8">
-                {selectedItem.name}
-            </p>
-            <IngredientsModalTable selectedItem={selectedItem} />
+        <Modal closeModal={handleModal} title='Детали ингридиента'>
+            {ingredientInModal ?
+                <>
+                    <img
+                        className={`mt-15`}
+                        src={`${ingredientInModal.image_large}`}
+                        alt={ingredientInModal.name}
+                    />
+                    <p className="text text_type_main-medium mt-4 mb-8">
+                        {ingredientInModal.name}
+                    </p>
+                    <IngredientsModalTable selectedItem={ingredientInModal} />
+                </>
+                :
+                <p>Идет загрузка информации</p>
+            }
         </Modal>
     )
 }
