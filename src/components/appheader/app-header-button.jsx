@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import btnStyle from './app-header.module.css'
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 export const AppHeaderButton = ({text, icon, path = "/"}) => {
     const [hover, setHover] = useState(false)
 
     return(
-        <Link
+        <NavLink
             onMouseEnter = {() => setHover(true)}
             onMouseLeave = {() => setHover(false)}
             to={path}
@@ -17,7 +17,7 @@ export const AppHeaderButton = ({text, icon, path = "/"}) => {
                 {icon}
             </span>
             <span className='ml-1 text text_type_main-default'>{text}</span>
-        </Link>
+        </NavLink>
     )
 }
 

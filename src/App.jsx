@@ -17,8 +17,6 @@ import {ProtectedRouteElement} from "./components/routes/protected-route";
 import {PublicRoute} from "./components/routes/public-route";
 import {IngredientDetailsModal} from "./components/modal/ingredient-details";
 import {BurgerIngredientPage} from "./components/burgeringredients/burger-ingredient-page";
-import {showIngredientInfo} from "./services/selectors/current-ingredient-info";
-import {hideIngredientIfoModal, showIngredientIfoModal} from "./services/actions/current-ingredient";
 
 function App() {
     const wasInForgotPass = useSelector(state => state.auth.forgotPassword.onSendMail)
@@ -44,11 +42,6 @@ function App() {
 function MainRoute({ wasInForgotPass, dataIsLoadingInFront }) {
     const location = useLocation()
     const state = location.state || {}
-    const selectedItem = useSelector(showIngredientInfo)
-    const [modalIsOpen, setModalIsOpen] = useState(false)
-    useEffect(() => {
-        setModalIsOpen(true)
-    }, [selectedItem]);
 
     return (
         <>
@@ -79,7 +72,7 @@ function MainRoute({ wasInForgotPass, dataIsLoadingInFront }) {
                     <Route
                         path="/ingredients/:id"
                         element={
-                            modalIsOpen && <IngredientDetailsModal />
+                            <IngredientDetailsModal />
                         }
                     />
                 </Routes>

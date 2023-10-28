@@ -28,8 +28,6 @@ export const getRegistration = (name, email, password) => (dispatch) => {
             }
         })
         .then((data) => {
-            console.log(data)
-            console.log(data.data)
             dispatch({type: REGISTRATION_REQUEST__SUCCESS, payload: data.data})
         })
         .catch((error) => {

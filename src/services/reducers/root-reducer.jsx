@@ -8,6 +8,7 @@ import {authReducer} from "./auth";
 import {updateTokenReducer} from "./update-token";
 import {quitReducer} from "./quit-user";
 import {profileInfoReducer} from "./profile";
+import {resetPasswordReducer} from "./reset-password";
 
 export const rootReducer = combineReducers({
     allIngredients: allIngredients,
@@ -18,5 +19,6 @@ export const rootReducer = combineReducers({
     auth: authReducer,
     updateToken: updateTokenReducer,
     quitUser: quitReducer,
-    profileData: profileInfoReducer
+    profileData: profileInfoReducer,
+    resetPassword: resetPasswordReducer
 })

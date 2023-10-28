@@ -63,7 +63,6 @@ export const forgotPass = (email) => (dispatch) => {
             dispatch({type: FORGOT_PASSWORD__SUCCESS, payload: data})
         })
         .catch((error) => {
-            console.log(error)
             dispatch({type: FORGOT_PASSWORD__FAILURE, payload: error.message})
         })
 }

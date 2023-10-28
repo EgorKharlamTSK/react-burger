@@ -1,16 +1,31 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password.module.css"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {resetPassword} from "../../../services/actions/reset-password";
 
 export const ResetPassword = () => {
-    const [valueLogin, setValueLogin] = useState('')
+    const dispatch = useDispatch()
+    const successRequesReset = useSelector(state => state.resetPassword)
+    const navigate = useNavigate()
+    const [valueToken, setToken] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
-    const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
-        alert('Icon Click Callback')
+
+    const getNewPassword = () => {
+        let submitData = {
+            "password": valuePassword,
+            "token": valueToken
+        }
+        dispatch(resetPassword(submitData))
     }
+
+    useEffect(() => {
+        if (successRequesReset.success) {
+            navigate("/login")
+        }
+    }, [successRequesReset]);
 
     return (
         <div className={styles.parent}>
@@ -21,13 +36,12 @@ export const ResetPassword = () => {
                 <Input
                     type={'text'}
                     placeholder={'Введите новый пароль'}
-                    onChange={e => setValueLogin(e.target.value)}
-                    value={valueLogin}
-                    name={'email'}
+                    onChange={e => setValuePassword(e.target.value)}
+                    value={valuePassword}
+                    name={'password'}
                     error={false}
                     icon={'ShowIcon'}
                     ref={inputRef}
-                    onIconClick={onIconClick}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1 pb-6"
@@ -35,17 +49,16 @@ export const ResetPassword = () => {
                 <Input
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    onChange={e => setValuePassword(e.target.value)}
-                    value={valuePassword}
-                    name={'password'}
+                    onChange={e => setToken(e.target.value)}
+                    value={valueToken}
+                    name={'token'}
                     error={false}
                     ref={inputRef}
-                    onIconClick={onIconClick}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1 pb-6"
                 />
-                <Button htmlType="button" type="primary" size="large">
+                <Button onClick={getNewPassword} htmlType="button" type="primary" size="large">
                     Сохранить
                 </Button>
                 <div className={`${styles.textBlocks} pt-20`}>

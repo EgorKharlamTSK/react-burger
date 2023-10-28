@@ -25,7 +25,6 @@ export const getOrders = (allIngredients) => (dispatch) => {
             dispatch({type: GET_ORDER_REQUEST_SUCCESS, payload: data})
         })
         .catch((error) => {
-            console.log(error.message)
             dispatch({type: GET_ORDER_REQUEST_FALIURE})
         })
 }

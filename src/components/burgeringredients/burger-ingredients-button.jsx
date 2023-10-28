@@ -1,8 +1,6 @@
 import tabStyle from "./burger-ingridients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
-import {hideIngredientIfoModal} from "../../services/actions/current-ingredient";
-import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import {Link, useLocation} from "react-router-dom";
@@ -18,12 +16,6 @@ export const BurgerIngredientsButton = ({isOpenModal, item, handleModal}) => {
             isDragging: monitor.isDragging(),
         }),
     }))
-
-    useEffect(() => {
-        if (!isOpenModal){
-            dispatch(hideIngredientIfoModal())
-        }
-    }, [isOpenModal]);
 
     const displayCountOfIngredient = (item) => {
         const findUsefulItem = Object.keys(counter).find(key => key === item._id)

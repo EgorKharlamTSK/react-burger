@@ -17,7 +17,6 @@ export const getAllIngredients = () => (dispatch) => {
             dispatch({type: GET_INGREDIENTS_REQUEST_SUCCESS, payload: data.data})
         })
         .catch((error) => {
-            console.log(error.message)
             dispatch({type: GET_INGREDIENTS_REQUEST_FALIURE})
         })
 }

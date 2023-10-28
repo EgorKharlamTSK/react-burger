@@ -1,6 +1,6 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useEffect, useRef, useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import styles from "./profile.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {quitUser} from "../../../services/actions/quit-user";
@@ -8,6 +8,7 @@ import {editProfile, profile} from "../../../services/actions/profile";
 
 export const Profile = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const quitProfStore = useSelector(state => state.quitUser)
     const loginStore = useSelector(state => state.auth)
     const profileInfo = useSelector(state => state.profileData)
@@ -19,7 +20,6 @@ export const Profile = () => {
     const refreshToken = localStorage.getItem('refreshToken')
     const accessToken = loginStore.accessToken
     const [changeValues, setChangeValues] = useState(false)
-    // const accessToken = loginStore.accessToken.replace('Bearer ', '').trim()
     const [nameChanged, setNameChanged] = useState(false);
     const [loginChanged, setLoginChanged] = useState(false);
     const [passwordChanged, setPasswordChanged] = useState(false);
@@ -38,7 +38,10 @@ export const Profile = () => {
     };
 
     const quitProfile = (refreshToken) => {
-        dispatch(quitUser(refreshToken))
+        dispatch(quitUser(refreshToken));
+        if (quitProfStore.success) {
+            window.location.href = window.location.href
+        }
     }
 
     const handleChangeProfData = () => {
@@ -60,16 +63,17 @@ export const Profile = () => {
             submitData.password = ''
         }
         dispatch(editProfile(accessToken, submitData))
+        setChangeValues(false)
     };
-
 
     useEffect(() => {
         dispatch(profile(accessToken))
-        if (profileInfo.isLoading) {
-            setValueName(profileInfo.user.name)
-            setValueLogin(profileInfo.user.email)
-        }
-    }, []);
+    }, [])
+
+    useEffect(() => {
+        setValueName(profileInfo.user.name)
+        setValueLogin(profileInfo.user.email)
+    }, [profileInfo]);
 
     return(
         <div className={`${styles.main} mt-30 container pl-5`}>

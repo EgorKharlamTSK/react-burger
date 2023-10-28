@@ -8,16 +8,12 @@ export const EDIT_PROFILE__FAILURE = "EDIT_PROFILE__FAILURE"
 export const profile = (token) => (dispatch) => {
     dispatch({type: GET_PROFILE_INFO})
 
-    const data = {
-        token: token
-    }
-
     fetch(`${URL}/auth/user`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(data),
+            'Content-Type': 'application/json',
+            'authorization': token
+        }
     })
         .then((res) => {
             if(res.ok) {
