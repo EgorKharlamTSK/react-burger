@@ -1,1 +1,1 @@
-export const showIngredientInfo = state => state.currentIngredientInfo
+export const showIngredientInfo = state => state.currentIngredientInfo.currentIngredientInfo

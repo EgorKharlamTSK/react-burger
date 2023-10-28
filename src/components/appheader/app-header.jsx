@@ -25,6 +25,7 @@ export const AppHeader = () => {
                 <AppHeaderButton
                     text="Личный камбинет"
                     icon={<ProfileIcon type={hoverLk ? 'primary' : 'secondary'} />}
+                    path="/profile"
                 />
             </div>
         </header>
