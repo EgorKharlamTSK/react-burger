@@ -1,4 +1,6 @@
 import {URL} from "../../utils/constants";
+import {checkResponse} from "../../utils/check-response";
+import {reduxRequest} from "../../utils/redux-request";
 
 export const AUTH_REQUEST = "AUTH_REQUEST"
 export const AUTH_REQUEST__SUCCESS = "AUTH_REQUEST__SUCCESS"
@@ -16,20 +18,15 @@ export const getAuth = (email, password) => (dispatch) => {
         password: password,
     }
 
-    fetch(`${URL}/auth/login`, {
+    const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(data),
-    })
-        .then((res) => {
-            if(res.ok) {
-                return res.json()
-            } else {
-                throw new Error('Error on fetch')
-            }
-        })
+    }
+
+    reduxRequest(`${URL}/auth/login`, options)
         .then((data) => {
             dispatch({type: AUTH_REQUEST__SUCCESS, payload: data})
         })
@@ -44,21 +41,15 @@ export const forgotPass = (email) => (dispatch) => {
     const data = {
         email: email,
     }
-
-    fetch(`${URL}/password-reset`, {
+    const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(data),
-    })
-        .then((res) => {
-            if(res.ok) {
-                return res.json()
-            } else {
-                throw new Error('Error on fetch')
-            }
-        })
+    }
+
+    reduxRequest(`${URL}/password-reset`, options)
         .then((data) => {
             dispatch({type: FORGOT_PASSWORD__SUCCESS, payload: data})
         })

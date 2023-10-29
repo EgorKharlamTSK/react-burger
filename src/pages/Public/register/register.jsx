@@ -1,21 +1,26 @@
 import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getRegistration} from "../../../services/actions/registration";
 import {registrationReducer} from "../../../services/reducers/registration";
 
 export const Register = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const regStore = useSelector(state => state.registration)
     const [valueName, setValueName] = useState('')
     const [valueLogin, setValueLogin] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
     const [errorText, setErrorText] = useState('')
-    const handleReg = (name, login, password) => {
-        dispatch(getRegistration(name, login, password))
+    const handleReg = (e) => {
+        e.preventDefault()
+        dispatch(getRegistration(valueName, valueLogin, valuePassword))
+        if (regStore.success) {
+            navigate("/login")
+        }
     }
 
     useEffect(() => {
@@ -26,7 +31,7 @@ export const Register = () => {
 
     return (
         <div className={styles.parent}>
-            <div className={styles.main}>
+            <form onSubmit={(e) => handleReg(e)} className={styles.main}>
                 <p className="text text_type_main-medium pb-6">
                     Регистрация
                 </p>
@@ -67,7 +72,7 @@ export const Register = () => {
                     size={'default'}
                     extraClass="ml-1 pb-6"
                 />
-                <Button htmlType="button" type="primary" size="large" onClick={() => handleReg(valueName, valueLogin, valuePassword)}>
+                <Button htmlType="submit" type="primary" size="large" >
                     Зарегистрироваться
                 </Button>
                 <div className={`${styles.textBlocks} pt-20`}>
@@ -87,7 +92,7 @@ export const Register = () => {
                         </span>
                     </p>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

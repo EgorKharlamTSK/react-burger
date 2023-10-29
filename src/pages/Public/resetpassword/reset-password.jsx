@@ -13,7 +13,8 @@ export const ResetPassword = () => {
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
 
-    const getNewPassword = () => {
+    const getNewPassword = (e) => {
+        e.preventDefault(e)
         let submitData = {
             "password": valuePassword,
             "token": valueToken
@@ -29,7 +30,7 @@ export const ResetPassword = () => {
 
     return (
         <div className={styles.parent}>
-            <div className={styles.main}>
+            <form onSubmit={(e) => getNewPassword(e)} className={styles.main}>
                 <p className="text text_type_main-medium pb-6">
                     Восстановление пароля
                 </p>
@@ -58,7 +59,7 @@ export const ResetPassword = () => {
                     size={'default'}
                     extraClass="ml-1 pb-6"
                 />
-                <Button onClick={getNewPassword} htmlType="button" type="primary" size="large">
+                <Button htmlType="submit" type="primary" size="large">
                     Сохранить
                 </Button>
                 <div className={`${styles.textBlocks} pt-20`}>
@@ -71,7 +72,7 @@ export const ResetPassword = () => {
                         </span>
                     </p>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

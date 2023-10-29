@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {AppHeaderButton} from "./app-header-button";
 import headerStyles from './app-header.module.css'
+import {Link} from "react-router-dom";
 export const AppHeader = () => {
     const [hoverConstr, setHoverConstr] = useState(false);
     const [hoverList, setHoverList] = useState(false);
@@ -21,7 +22,9 @@ export const AppHeader = () => {
                         icon={<ListIcon type={hoverList ? 'primary' : 'secondary'} />}
                     />
                 </nav>
-                <Logo className='-m-l-5' />
+                <Link to={"/"} >
+                    <Logo className='-m-l-5' />
+                </Link>
                 <AppHeaderButton
                     text="Личный камбинет"
                     icon={<ProfileIcon type={hoverLk ? 'primary' : 'secondary'} />}

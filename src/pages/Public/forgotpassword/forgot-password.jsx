@@ -28,7 +28,7 @@ export const ForgotPassword = () => {
 
     return (
         <div className={styles.parent}>
-            <div className={styles.main}>
+            <form onSubmit={handleSendEmail} className={styles.main}>
                 <p className="text text_type_main-medium pb-6">
                     Восстановление пароля
                 </p>
@@ -52,7 +52,7 @@ export const ForgotPassword = () => {
                     )
                     : <></>
                 }
-                <Button onClick={handleSendEmail} htmlType="button" type="primary" size="large">
+                <Button htmlType="submit" type="primary" size="large">
                     Восстановить
                 </Button>
                 <div className={`${styles.textBlocks} pt-20`}>
@@ -65,7 +65,7 @@ export const ForgotPassword = () => {
                         </span>
                     </p>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

@@ -1,4 +1,6 @@
 import {URL} from "../../utils/constants";
+import {checkResponse} from "../../utils/check-response";
+import {reduxRequest} from "../../utils/redux-request";
 
 export const REFRESH_TOKEN = "REFRESH_TOKEN"
 export const REFRESH_TOKEN__SUCCESS = "REFRESH_TOKEN__SUCCESS"
@@ -10,21 +12,15 @@ export const getNewToken = (token) => (dispatch) => {
     const data = {
         token: token
     }
-
-    fetch(`${URL}/auth/token`, {
+    const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(data),
-    })
-        .then((res) => {
-            if(res.ok) {
-                return res.json()
-            } else {
-                throw new Error('Error on fetch')
-            }
-        })
+    }
+
+    reduxRequest(`${URL}/auth/token`, options)
         .then((data) => {
             dispatch({type: REFRESH_TOKEN__SUCCESS, payload: data})
         })

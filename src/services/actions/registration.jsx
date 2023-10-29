@@ -1,4 +1,6 @@
 import {URL} from "../../utils/constants";
+import {checkResponse} from "../../utils/check-response";
+import {reduxRequest} from "../../utils/redux-request";
 
 export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST"
 export const REGISTRATION_REQUEST__SUCCESS = "REGISTRATION_REQUEST__SUCCESS"
@@ -12,21 +14,15 @@ export const getRegistration = (name, email, password) => (dispatch) => {
         password: password,
         name: name
     }
-
-    fetch(`${URL}/auth/register`, {
+    const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(data),
-    })
-        .then((res) => {
-            if(res.ok) {
-                return res.json()
-            } else {
-                throw new Error('Error on fetch')
-            }
-        })
+    }
+
+    reduxRequest(`${URL}/auth/register`, options)
         .then((data) => {
             dispatch({type: REGISTRATION_REQUEST__SUCCESS, payload: data.data})
         })

@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
-import {AppHeader} from "./components/appheader/app-header";
-import {BurgerIngredients} from "./components/burgeringredients/burger-ingridients";
-import {BurgerConstructor} from "./components/burgerconstructor/burger-constructor";
+import style from './app.module.css';
+import {AppHeader} from "../appheader/app-header";
+import {BurgerIngredients} from "../burgeringredients/burger-ingridients";
+import {BurgerConstructor} from "../burgerconstructor/burger-constructor";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllIngredients} from "./services/actions/all-ingredients";
+import {getAllIngredients} from "../../services/actions/all-ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate} from "react-router-dom";
-import {Login} from "./pages/Public/login/login";
-import {Register} from "./pages/Public/register/register";
-import {ForgotPassword} from "./pages/Public/forgotpassword/forgot-password";
-import {ResetPassword} from "./pages/Public/resetpassword/reset-password";
-import {Profile} from "./pages/Private/profile/profile";
-import {ProtectedRouteElement} from "./components/routes/protected-route";
-import {PublicRoute} from "./components/routes/public-route";
-import {IngredientDetailsModal} from "./components/modal/ingredient-details";
-import {BurgerIngredientPage} from "./components/burgeringredients/burger-ingredient-page";
+import {Login} from "../../pages/Public/login/login";
+import {Register} from "../../pages/Public/register/register";
+import {ForgotPassword} from "../../pages/Public/forgotpassword/forgot-password";
+import {ResetPassword} from "../../pages/Public/resetpassword/reset-password";
+import {Profile} from "../../pages/Private/profile/profile";
+import {ProtectedRouteElement} from "../routes/protected-route";
+import {PublicRoute} from "../routes/public-route";
+import {IngredientDetailsModal} from "../modal/ingredient-details";
+import {BurgerIngredientPage} from "../burgeringredients/burger-ingredient-page";
 
 function App() {
     const wasInForgotPass = useSelector(state => state.auth.forgotPassword.onSendMail)
@@ -54,9 +54,9 @@ function MainRoute({ wasInForgotPass, dataIsLoadingInFront }) {
                 <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
                 <Route path="/ingredients/:id" element={<BurgerIngredientPage />} />
                 <Route path="/" element={
-                    <ProtectedRouteElement
+                    <PublicRoute
                         element={
-                            <div className="App">
+                            <div className={style.app}>
                                 <DndProvider backend={HTML5Backend}>
                                     {dataIsLoadingInFront
                                         ? <main className='mt-10'><p>Ожидайте загрузки ингридиентов</p></main>

@@ -1,4 +1,6 @@
 import {URL} from "../../utils/constants";
+import {checkResponse} from "../../utils/check-response";
+import {reduxRequest} from "../../utils/redux-request";
 
 export const QUIT_REQUEST = "QUIT_REQUEST"
 export const QUIT__SUCCESS = "QUIT__SUCCESS"
@@ -10,21 +12,15 @@ export const quitUser = (token) => (dispatch) => {
     const data = {
         token: token
     }
-
-    fetch(`${URL}/auth/logout`, {
+    const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(data),
-    })
-        .then((res) => {
-            if(res.ok) {
-                return res.json()
-            } else {
-                throw new Error('Error on fetch')
-            }
-        })
+    }
+
+    reduxRequest(`${URL}/auth/logout`, options)
         .then((data) => {
             dispatch({type: QUIT__SUCCESS, payload: data})
         })

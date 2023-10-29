@@ -4,6 +4,8 @@ import styles from "./login.module.css"
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getAuth} from "../../../services/actions/auth";
+import {useForms} from "../../../services/hooks/use-forms";
+import {editProfile} from "../../../services/actions/profile";
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -13,8 +15,9 @@ export const Login = () => {
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
 
-    const handleLogin = (login, password) => {
-        dispatch(getAuth(login, password))
+    const handleLogin = (e) => {
+        e.preventDefault();
+        dispatch(getAuth(valueLogin, valuePassword))
     }
 
     useEffect(() => {
@@ -32,7 +35,7 @@ export const Login = () => {
 
     return (
         <div className={styles.parent}>
-            <div className={styles.main}>
+            <form onSubmit={(e) => handleLogin(e)} className={styles.main}>
                 <p className="text text_type_main-medium pb-6">
                     Вход
                 </p>
@@ -61,7 +64,7 @@ export const Login = () => {
                     size={'default'}
                     extraClass="ml-1 pb-6"
                 />
-                <Button htmlType="button" type="primary" size="large" onClick={() => handleLogin(valueLogin, valuePassword)}>
+                <Button htmlType="submit" type="primary" size="large" >
                     Вход
                 </Button>
                 <div className={`${styles.textBlocks} pt-20`}>
@@ -82,7 +85,7 @@ export const Login = () => {
                         </span>
                     </p>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }
