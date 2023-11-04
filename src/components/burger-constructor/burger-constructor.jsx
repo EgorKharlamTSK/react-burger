@@ -7,20 +7,28 @@ import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients, getSumOfOrder} from "../../services/selectors/burger-constructor";
 import {getOrders} from "../../services/actions/order";
 import {resetConstructor} from "../../services/actions/burger-constructor";
+import {checkAuth} from "../../services/actions/profile";
+import {useNavigate} from "react-router-dom";
 
 export const BurgerConstructor = () => {
     const dispatch = useDispatch()
     const sum = useSelector(getSumOfOrder)
+    const loginStore = useSelector(state => state.auth)
     const ingredientFromConstructor = useSelector(getConstructorIngredients)
     const allIngredients = useSelector(getConstructorIngredients)
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [includeBun, setIncludeBun] = useState(false)
+    const navigate = useNavigate()
     const handleModal = async () => {
-        if(allIngredients.length > 0) {
-            dispatch(getOrders(allIngredients))
+        if (loginStore.success === true) {
+            if(allIngredients.length > 0) {
+                dispatch(getOrders(allIngredients))
+            }
+            setIsOpenModal(!isOpenModal);
+            dispatch(resetConstructor())
+        } else {
+            navigate("/login")
         }
-        setIsOpenModal(!isOpenModal);
-        dispatch(resetConstructor())
     };
 
     useEffect(() => {

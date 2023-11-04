@@ -1,4 +1,3 @@
-import { IngredientsModalTable } from "../burger-ingredients/ingredients-modal-table";
 import { Modal } from "./modal";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";

@@ -11,6 +11,7 @@ export const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const loginStore = useSelector(state => state.auth)
+    const isLoggedIn = useSelector(state => state.profileData.isAuth)
     const [valueLogin, setValueLogin] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
@@ -29,6 +30,12 @@ export const Login = () => {
             dispatch(checkAuth())
         }
     }, [loginStore])
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate(from, { replace: true })
+        }
+    }, []);
 
     return (
         <div className={styles.parent}>
