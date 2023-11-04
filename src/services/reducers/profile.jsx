@@ -1,9 +1,10 @@
 import {
+    CHECK_AUTH, CHECK_AUTH__FAILURE, CHECK_AUTH__SUCCESS,
     EDIT_PROFILE, EDIT_PROFILE__FAILURE,
     EDIT_PROFILE__SUCCESS,
     GET_PROFILE_INFO,
     GET_PROFILE_INFO__FAILURE,
-    GET_PROFILE_INFO__SUCCESS
+    GET_PROFILE_INFO__SUCCESS, RESET_PROFILE
 } from "../actions/profile";
 
 const initialState = {
@@ -12,7 +13,9 @@ const initialState = {
         email: null,
         name: null
     },
-    isLoading: false
+    isLoading: false,
+    isAuth: false,
+    isAuthLoading: false
 }
 
 export const profileInfoReducer = (state = initialState, action) => {
@@ -25,6 +28,18 @@ export const profileInfoReducer = (state = initialState, action) => {
         }
         case GET_PROFILE_INFO__FAILURE: {
             return {...state, isLoading: false, success: false}
+        }
+        case CHECK_AUTH: {
+            return {...state, isAuthLoading: true}
+        }
+        case CHECK_AUTH__SUCCESS: {
+            return {...state, isAuth: action.payload, isAuthLoading: false}
+        }
+        case CHECK_AUTH__FAILURE: {
+            return {...state, isAuth: action.payload, isAuthLoading: false}
+        }
+        case RESET_PROFILE: {
+            return initialState
         }
         case EDIT_PROFILE: {
             return {...state, isLoading: true}

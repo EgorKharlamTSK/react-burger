@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password.module.css"
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../../../services/actions/reset-password";
 
@@ -12,6 +12,8 @@ export const ResetPassword = () => {
     const [valueToken, setToken] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
+    const location = useLocation();
+    const isFromForgotPassword = location.state?.from === "/forgot-password"
 
     const getNewPassword = (e) => {
         e.preventDefault(e)
@@ -23,14 +25,14 @@ export const ResetPassword = () => {
     }
 
     useEffect(() => {
-        if (successRequesReset.success) {
-            navigate("/login")
+        if (successRequesReset.success && isFromForgotPassword) {
+            navigate("/login");
         }
     }, [successRequesReset]);
 
     return (
         <div className={styles.parent}>
-            <form onSubmit={(e) => getNewPassword(e)} className={styles.main}>
+            <form onSubmit={getNewPassword} className={styles.main}>
                 <p className="text text_type_main-medium pb-6">
                     Восстановление пароля
                 </p>

@@ -1,11 +1,11 @@
 import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css"
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getAuth} from "../../../services/actions/auth";
 import {useForms} from "../../../services/hooks/use-forms";
-import {editProfile} from "../../../services/actions/profile";
+import {CHECK_AUTH, checkAuth, editProfile, profile} from "../../../services/actions/profile";
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -14,7 +14,8 @@ export const Login = () => {
     const [valueLogin, setValueLogin] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
-
+    const location = useLocation();
+    const from = location.state?.from || '/';
     const handleLogin = (e) => {
         e.preventDefault();
         dispatch(getAuth(valueLogin, valuePassword))
@@ -22,20 +23,16 @@ export const Login = () => {
 
     useEffect(() => {
         if (loginStore.success === true) {
-            navigate("/")
+            navigate(from, { replace: true })
             localStorage.setItem("refreshToken", loginStore.refreshToken)
+            localStorage.setItem("accessToken", loginStore.accessToken.split('Bearer ')[1])
+            dispatch(checkAuth())
         }
-    }, [loginStore]);
-
-    if (loginStore.success === true) {
-        return (
-            <Navigate to="/" replace />
-        )
-    }
+    }, [loginStore])
 
     return (
         <div className={styles.parent}>
-            <form onSubmit={(e) => handleLogin(e)} className={styles.main}>
+            <form onSubmit={handleLogin} className={styles.main}>
                 <p className="text text_type_main-medium pb-6">
                     Вход
                 </p>

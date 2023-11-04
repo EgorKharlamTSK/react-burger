@@ -3,7 +3,7 @@ import {
     AUTH_REQUEST__FAILURE,
     AUTH_REQUEST__SUCCESS,
     FORGOT_PASSWORD, FORGOT_PASSWORD__FAILURE,
-    FORGOT_PASSWORD__SUCCESS, forgotPass
+    FORGOT_PASSWORD__SUCCESS, forgotPass, RESET_AUTH
 } from "../actions/auth";
 
 const initialState = {
@@ -33,6 +33,9 @@ export const authReducer = (state = initialState, action) => {
         }
         case AUTH_REQUEST__FAILURE: {
             return {...state, isLoading: false, errorMessage: action.payload, success: false}
+        }
+        case RESET_AUTH: {
+            return initialState
         }
         case FORGOT_PASSWORD: {
             return {...state, forgotPassword: {...state.forgotPassword, isLoadingPasswordReq: true, onSendMail: true}}

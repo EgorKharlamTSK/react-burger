@@ -20,7 +20,7 @@ export const getNewToken = (token) => (dispatch) => {
         body: JSON.stringify(data),
     }
 
-    reduxRequest(`${URL}/auth/token`, options)
+    reduxRequest(`${URL}/auth/token`, options, dispatch)
         .then((data) => {
             dispatch({type: REFRESH_TOKEN__SUCCESS, payload: data})
         })

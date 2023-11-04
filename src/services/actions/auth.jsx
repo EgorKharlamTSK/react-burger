@@ -5,6 +5,7 @@ import {reduxRequest} from "../../utils/redux-request";
 export const AUTH_REQUEST = "AUTH_REQUEST"
 export const AUTH_REQUEST__SUCCESS = "AUTH_REQUEST__SUCCESS"
 export const AUTH_REQUEST__FAILURE = "AUTH_REQUEST__FAILURE"
+export const RESET_AUTH = "RESET_AUTH"
 export const FORGOT_PASSWORD = "FORGOT_PASSWORD"
 export const FORGOT_PASSWORD__SUCCESS = "FORGOT_PASSWORD__SUCCESS"
 export const FORGOT_PASSWORD__FAILURE = "FORGOT_PASSWORD__FAILURE"

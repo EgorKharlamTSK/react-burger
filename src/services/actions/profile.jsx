@@ -4,6 +4,10 @@ import {reduxRequest} from "../../utils/redux-request";
 export const GET_PROFILE_INFO = "GET_PROFILE_INFO"
 export const GET_PROFILE_INFO__SUCCESS = "GET_PROFILE_INFO__SUCCESS"
 export const GET_PROFILE_INFO__FAILURE = "GET_PROFILE_INFO__FAILURE"
+export const RESET_PROFILE = "RESET_PROFILE"
+export const CHECK_AUTH = "CHECK_AUTH"
+export const CHECK_AUTH__SUCCESS = "CHECK_AUTH__SUCCESS"
+export const CHECK_AUTH__FAILURE = "CHECK_AUTH__FAILURE"
 export const EDIT_PROFILE = "EDIT_PROFILE"
 export const EDIT_PROFILE__SUCCESS = "EDIT_PROFILE__SUCCESS"
 export const EDIT_PROFILE__FAILURE = "EDIT_PROFILE__FAILURE"
@@ -47,4 +51,16 @@ export const editProfile = (token, data) => (dispatch) => {
         .catch((error) => {
             dispatch({type: EDIT_PROFILE__FAILURE, payload: error.message})
         })
+}
+
+export const checkAuth = () => (dispatch) => {
+    dispatch({type: CHECK_AUTH})
+
+    const accessToken = localStorage.getItem('accessToken')
+
+    if (accessToken) {
+        dispatch({type: CHECK_AUTH__SUCCESS, payload: true})
+    } else {
+        dispatch({type: CHECK_AUTH__FAILURE, payload: false})
+    }
 }

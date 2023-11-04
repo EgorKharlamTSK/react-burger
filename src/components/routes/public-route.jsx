@@ -1,8 +1,12 @@
 import {useSelector} from "react-redux";
-import {Navigate} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 
 export const PublicRoute = ({element}) => {
-    const auth = useSelector(state => state.auth)
+    const location = useLocation()
 
-    return auth.user.name !== '' ? element : <Navigate to="/" replace />;
+    const auth = useSelector(state => state.auth)
+    const from = location.state?.from || '/';
+
+
+    return auth.user.name !== '' ? element : <Navigate to={ from } />;
 }

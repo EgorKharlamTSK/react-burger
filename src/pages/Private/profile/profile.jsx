@@ -1,24 +1,22 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import styles from "./profile.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {quitUser} from "../../../services/actions/quit-user";
-import {editProfile, profile} from "../../../services/actions/profile";
+import {CHECK_AUTH, checkAuth, editProfile, profile} from "../../../services/actions/profile";
+import {getNewToken} from "../../../services/actions/update-token";
 
 export const Profile = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const quitProfStore = useSelector(state => state.quitUser)
-    const loginStore = useSelector(state => state.auth)
     const profileInfo = useSelector(state => state.profileData)
-
+    const navigate = useNavigate()
     const [valueName, setValueName] = useState('')
     const [valueLogin, setValueLogin] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
     const refreshToken = localStorage.getItem('refreshToken')
-    const accessToken = loginStore.accessToken
+    const accessToken = localStorage.getItem('accessToken')
     const [changeValues, setChangeValues] = useState(false)
     const [nameChanged, setNameChanged] = useState(false);
     const [loginChanged, setLoginChanged] = useState(false);
@@ -37,13 +35,10 @@ export const Profile = () => {
         setPasswordChanged(true);
     };
 
-    const quitProfile = (refreshToken) => {
-        dispatch(quitUser(refreshToken));
-        if (quitProfStore.success) {
-            window.location.href = window.location.href
-        }
+    const quitProfile =  async (refreshToken) => {
+        dispatch(quitUser(refreshToken))
+        navigate('/login', {replace: true})
     }
-
     const handleChangeProfData = () => {
         setChangeValues(true)
     }
@@ -65,10 +60,6 @@ export const Profile = () => {
         dispatch(editProfile(accessToken, submitData))
         setChangeValues(false)
     };
-
-    useEffect(() => {
-        dispatch(profile(accessToken))
-    }, [])
 
     useEffect(() => {
         setValueName(profileInfo.user.name)
@@ -113,7 +104,7 @@ export const Profile = () => {
                         type={'text'}
                         placeholder={'Имя'}
                         onChange={handleNameChangeValue}
-                        value={valueName}
+                        value={valueName ? valueName : "Идет загрузка имени"}
                         name={'name'}
                         error={false}
                         ref={inputRef}
@@ -128,7 +119,7 @@ export const Profile = () => {
                         type={'text'}
                         placeholder={'Логин'}
                         onChange={handleLoginChangeValue}
-                        value={valueLogin}
+                        value={valueLogin ? valueLogin : "Идет загрузка логина"}
                         name={'email'}
                         error={false}
                         icon={'EditIcon'}
@@ -144,7 +135,7 @@ export const Profile = () => {
                         placeholder={'Пароль'}
                         onChange={handlePasswordChangeValue}
                         icon={'EditIcon'}
-                        value={valuePassword}
+                        value={valuePassword ? valuePassword : ""}
                         name={'password'}
                         error={false}
                         ref={inputRef}

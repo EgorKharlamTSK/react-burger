@@ -31,7 +31,7 @@ export const Register = () => {
 
     return (
         <div className={styles.parent}>
-            <form onSubmit={(e) => handleReg(e)} className={styles.main}>
+            <form onSubmit={handleReg} className={styles.main}>
                 <p className="text text_type_main-medium pb-6">
                     Регистрация
                 </p>
