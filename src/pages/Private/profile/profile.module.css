@@ -1,0 +1,32 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+}
+
+.links > p {
+    white-space: break-spaces;
+}
+
+.links * {
+    text-decoration: none;
+}
+
+.formBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.cancel{
+    background: #9c0000!important;
+}
+
+.suc {
+    background: #009c00!important;
+}

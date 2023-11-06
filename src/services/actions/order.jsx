@@ -1,11 +1,14 @@
 import {URL} from "../../utils/constants";
+import {checkResponse} from "../../utils/check-response";
+import {reduxRequest} from "../../utils/redux-request";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST"
 export const GET_ORDER_REQUEST_SUCCESS = "GET_ORDER_REQUEST_SUCCESS"
 export const GET_ORDER_REQUEST_FALIURE = "GET_ORDER_REQUEST_FALIURE"
 export const getOrders = (allIngredients) => (dispatch) => {
     dispatch({type: GET_ORDER_REQUEST})
-    fetch(`${URL}/orders`, {
+
+    const options = {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -13,19 +16,13 @@ export const getOrders = (allIngredients) => (dispatch) => {
         body: JSON.stringify({
             "ingredients": allIngredients
         })
-    })
-        .then((res) => {
-            if(res.ok) {
-                return res.json()
-            } else {
-                throw new Error('Error on fetch')
-            }
-        })
+    }
+
+    reduxRequest(`${URL}/orders`, options)
         .then((data) => {
             dispatch({type: GET_ORDER_REQUEST_SUCCESS, payload: data})
         })
         .catch((error) => {
-            console.log(error.message)
             dispatch({type: GET_ORDER_REQUEST_FALIURE})
         })
 }

@@ -1,13 +1,13 @@
 import tabStyle from "./burger-ingridients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
-import {hideIngredientIfoModal} from "../../services/actions/current-ingredient";
-import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
+import {Link, useLocation} from "react-router-dom";
 
 export const BurgerIngredientsButton = ({isOpenModal, item, handleModal}) => {
     const dispatch = useDispatch()
+    let location = useLocation();
     const counter = useSelector(state => state.constructorReducer.listOfCounterIngredients)
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: "ingredient",
@@ -17,12 +17,6 @@ export const BurgerIngredientsButton = ({isOpenModal, item, handleModal}) => {
         }),
     }))
 
-    useEffect(() => {
-        if (!isOpenModal){
-            dispatch(hideIngredientIfoModal())
-        }
-    }, [isOpenModal]);
-
     const displayCountOfIngredient = (item) => {
         const findUsefulItem = Object.keys(counter).find(key => key === item._id)
         const value = findUsefulItem ? counter[findUsefulItem] : undefined
@@ -31,7 +25,9 @@ export const BurgerIngredientsButton = ({isOpenModal, item, handleModal}) => {
 
     return (
         <div ref={dragRef} className={`${tabStyle.tabItem} mt-6 mb-10`} key={item.uniqId}>
-            <button
+            <Link
+                to={`/ingredients/${item._id}`}
+                state={{ backgroundLocation: location }}
                 className={`${tabStyle.btn}`}
             >
                 <img
@@ -40,11 +36,9 @@ export const BurgerIngredientsButton = ({isOpenModal, item, handleModal}) => {
                     onClick={() => handleModal(item)}
                 />
                 {displayCountOfIngredient(item) > 0 ?
-                    <Counter
-                        count={displayCountOfIngredient(item)}
-                    /> : <></>
+                    <Counter count={displayCountOfIngredient(item)} /> : <></>
                 }
-            </button>
+            </Link>
             <div className={`${tabStyle.item_price} mt-1 mb-1`}>
                 <p className="text text_type_digits-default">
                     {item.price}

@@ -23,16 +23,16 @@ export const IngredientsModalTable = ({selectedItem}) => {
             <tbody>
                 <tr>
                     <td>
-                        <p className="text text_type_main-medium">{selectedItem.calories}</p>
+                        <p className="text text_type_main-medium">{selectedItem?.calories}</p>
                     </td>
                     <td>
-                        <p className="text text_type_main-medium">{selectedItem.proteins}</p>
+                        <p className="text text_type_main-medium">{selectedItem?.proteins}</p>
                     </td>
                     <td>
-                        <p className="text text_type_main-medium">{selectedItem.fat}</p>
+                        <p className="text text_type_main-medium">{selectedItem?.fat}</p>
                     </td>
                     <td>
-                        <p className="text text_type_main-medium">{selectedItem.carbohydrates}</p>
+                        <p className="text text_type_main-medium">{selectedItem?.carbohydrates}</p>
                     </td>
                 </tr>
             </tbody>

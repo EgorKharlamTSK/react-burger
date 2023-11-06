@@ -48,3 +48,13 @@ p {
 .ingredients_tabs{
     display: flex;
 }
+
+.ingredient_on_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ingredient_parent_page {
+    display: flex;
+    justify-content: center;
+}

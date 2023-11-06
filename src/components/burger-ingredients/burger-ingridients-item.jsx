@@ -1,7 +1,6 @@
 import styles from './burger-ingridients.module.css'
-import {forwardRef, useCallback, useEffect, useState} from "react";
+import {forwardRef, useState} from "react";
 import {BurgerIngredientsItemType} from '../../utils/props-types'
-import {IngredientDetailsModal} from "../modal/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
 import {showIngredientInfo} from "../../services/selectors/current-ingredient-info";
 import {showIngredientIfoModal} from "../../services/actions/current-ingredient";
@@ -36,12 +35,6 @@ export const BurgerIngredientsItem = forwardRef(({title, data}, ref) => {
                     }))
                 )}
             </div>
-            {isOpenModal && selectedItem && (
-                <IngredientDetailsModal
-                    handleModal={handleModal}
-                    selectedItem={selectedItem1}
-                />
-            )}
         </div>
     )
 })
