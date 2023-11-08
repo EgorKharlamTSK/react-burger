@@ -1,0 +1,2 @@
+export const getConstructorIngredients = (state: { constructorReducer: { constructorIngredients: any } }) => state.constructorReducer.constructorIngredients
+export const getSumOfOrder = (state: { constructorReducer: { sum: any } }) => state.constructorReducer.sum
