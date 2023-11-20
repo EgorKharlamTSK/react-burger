@@ -1,0 +1,1 @@
+export const getAllIngredients = (state: { allIngredients: { ingredients: any; }; }) => state.allIngredients.ingredients
