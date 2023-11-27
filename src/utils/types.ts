@@ -1,9 +1,21 @@
-import {Dispatch, ReactElement, ReactNode} from "react";
+import { ReactElement, ReactNode} from "react";
 import {Location} from "react-router-dom";
-import PropTypes from "prop-types";
-import {ProtectedRouteElement} from "../components/routes/protected-route";
+import { Dispatch } from 'redux';
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {store} from "../services/store";
+import {TGetIngredient} from "../services/actions/all-ingredients";
+import {TAuth} from "../services/actions/auth";
+import {TBurgerActions} from "../services/actions/burger-constructor";
+import {TCurrentIngredientAction} from "../services/actions/current-ingredient";
+import {TOrderInfoActions} from "../services/actions/order";
+import {TProfileActionTypes} from "../services/actions/profile";
+import {TQuitActionTypes} from "../services/actions/quit-user";
+import {TRegistrationRequest} from "../services/actions/registration";
+import {TResetPassword} from "../services/actions/reset-password";
+import {TRefreshTokeAction} from "../services/actions/update-token";
+import {rootReducer} from "../services/reducers/root-reducer";
 
-export type TDispatch = Dispatch<any>
+export type TDispatch = Dispatch
 export type TLocation = Location<any>
 
 export interface IBurgerItemData {
@@ -19,7 +31,7 @@ export interface IBurgerItemData {
     image_mobile: string
     image_large: string
     __v: number
-    uniqId?: number
+    uniqId?: number | string | undefined
 }
 
 export interface IBurgerIngredientsItemType  {
@@ -63,3 +75,19 @@ export interface IRefreshData {
     refreshToken: string;
     accessToken: string;
 }
+
+export type TApplicationActions = |
+    TGetIngredient |
+    TAuth |
+    TBurgerActions |
+    TCurrentIngredientAction |
+    TOrderInfoActions |
+    TProfileActionTypes |
+    TQuitActionTypes |
+    TRegistrationRequest |
+    TResetPassword |
+    TRefreshTokeAction
+
+export type TRootState = ReturnType<typeof rootReducer>
+export type AppDispatch = ThunkDispatch<TRootState, unknown, TApplicationActions>;
+export type AppThunkAction<ReturnType = void> = ThunkAction<ReturnType, TRootState, unknown, TApplicationActions>;

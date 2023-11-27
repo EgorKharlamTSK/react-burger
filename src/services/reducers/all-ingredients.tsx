@@ -1,15 +1,22 @@
 import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_REQUEST_FALIURE,
-    GET_INGREDIENTS_REQUEST_SUCCESS
+    GET_INGREDIENTS_REQUEST_SUCCESS, TGetIngredient
 } from "../actions/all-ingredients";
+import {IBurgerItemData} from "../../utils/types";
 
-const initialState = {
+interface IInitialStateAllIngred {
+    ingredients: Array<IBurgerItemData>,
+    isLoading: boolean,
+    error: string,
+}
+
+const initialState: IInitialStateAllIngred = {
     ingredients: [],
     isLoading: false,
-    error: null,
+    error: '',
 }
-export const allIngredients = (state = initialState, action: { type: any; payload: any; }) => {
+export const allIngredients = (state = initialState, action: TGetIngredient) => {
     switch (action.type){
         case GET_INGREDIENTS_REQUEST: {
             return {...state,  isLoading: true}

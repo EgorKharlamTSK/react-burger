@@ -1,2 +1,4 @@
-export const getConstructorIngredients = (state: { constructorReducer: { constructorIngredients: any } }) => state.constructorReducer.constructorIngredients
-export const getSumOfOrder = (state: { constructorReducer: { sum: any } }) => state.constructorReducer.sum
+import {TRootState} from "../../utils/types";
+
+export const getConstructorIngredients = (state: TRootState) => state.constructorReducer.constructorIngredients
+export const getSumOfOrder = (state: TRootState) => state.constructorReducer.sum

@@ -1,12 +1,37 @@
 import {URL} from "../../utils/constants";
 import {reduxRequest} from "../../utils/redux-request";
-import {IRefreshData, TDispatch} from "../../utils/types";
+import {AppDispatch, AppThunkAction, IRefreshData, TDispatch} from "../../utils/types";
+import {RESET_PASSWORD_REQUEST} from "./reset-password";
 
 export const REFRESH_TOKEN = "REFRESH_TOKEN"
 export const REFRESH_TOKEN__SUCCESS = "REFRESH_TOKEN__SUCCESS"
 export const REFRESH_TOKEN__FAILURE = "REFRESH_TOKEN__FAILURE"
 
-export const getNewToken = (token:string): any => async (dispatch: TDispatch): Promise<IRefreshData> => {
+interface IDataForRefreshTokSuc {
+    accessToken: string,
+    refreshToken: string
+}
+
+interface IDataForRefreshTokFail {
+    error: string
+}
+
+interface IRefreshTok {
+    type: typeof REFRESH_TOKEN;
+}
+interface IRefreshTokSuc {
+    type: typeof REFRESH_TOKEN__SUCCESS;
+    payload: IDataForRefreshTokSuc
+
+}
+interface IRefreshTokFail {
+    type: typeof REFRESH_TOKEN__FAILURE
+    payload: IDataForRefreshTokFail
+}
+
+export type TRefreshTokeAction = IRefreshTok | IRefreshTokSuc | IRefreshTokFail
+
+export const getNewToken = (token:string): AppThunkAction => async (dispatch: AppDispatch): Promise<{accessToken: string, refreshToken: string}> => {
     dispatch({type: REFRESH_TOKEN})
 
     const data = {
