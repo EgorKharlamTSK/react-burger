@@ -2,9 +2,10 @@ import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css"
 import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {getAuth} from "../../../services/actions/auth";
 import {CHECK_AUTH, checkAuth, editProfile, profile} from "../../../services/actions/profile";
+import {useDispatch} from "../../../services/hooks/use-dispatch";
+import {useSelector} from "../../../services/hooks/use-selector";
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -27,6 +28,10 @@ export const Login = () => {
             localStorage.setItem("refreshToken", loginStore.refreshToken)
             localStorage.setItem("accessToken", loginStore.accessToken.split('Bearer ')[1])
             dispatch(checkAuth())
+            // const accessToken = localStorage.getItem("accessToken")
+            // if (accessToken) {
+            //     dispatch(profile(accessToken))
+            // }
         }
     }, [loginStore])
 

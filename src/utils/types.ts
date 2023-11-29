@@ -14,9 +14,16 @@ import {TRegistrationRequest} from "../services/actions/registration";
 import {TResetPassword} from "../services/actions/reset-password";
 import {TRefreshTokeAction} from "../services/actions/update-token";
 import {rootReducer} from "../services/reducers/root-reducer";
+import {TWsFeedActions} from "../services/actions/ws-orders";
 
 export type TDispatch = Dispatch
 export type TLocation = Location<any>
+
+export enum WebsocketStatus {
+    CONNECTING =  "CONNECTING...",
+    ONLINE = "ONLINE",
+    OFFLINE = "OFFLINE"
+}
 
 export interface IBurgerItemData {
     _id: string
@@ -76,6 +83,22 @@ export interface IRefreshData {
     accessToken: string;
 }
 
+export interface IWsFeedsItem {
+    ingredients: string[],
+    _id: string,
+    status: string,
+    number: number,
+    createdAt: string,
+    updatedAt: string
+}
+
+export interface IWsFeed {
+    success: boolean,
+    feeds: IWsFeedsItem[],
+    total: number,
+    totalToday: number
+}
+
 export type TApplicationActions = |
     TGetIngredient |
     TAuth |
@@ -86,7 +109,8 @@ export type TApplicationActions = |
     TQuitActionTypes |
     TRegistrationRequest |
     TResetPassword |
-    TRefreshTokeAction
+    TRefreshTokeAction |
+    TWsFeedActions
 
 export type TRootState = ReturnType<typeof rootReducer>
 export type AppDispatch = ThunkDispatch<TRootState, unknown, TApplicationActions>;

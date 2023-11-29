@@ -2,8 +2,9 @@ import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password.module.css"
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../../../services/actions/reset-password";
+import {useDispatch} from "../../../services/hooks/use-dispatch";
+import {useSelector} from "../../../services/hooks/use-selector";
 
 export const ResetPassword = () => {
     const dispatch = useDispatch()

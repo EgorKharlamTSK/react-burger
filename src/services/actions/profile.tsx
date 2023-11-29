@@ -119,8 +119,9 @@ export interface IResetProfile {
 
 export type TProfileActionTypes = IGetProfileInfoAction | IGetProfileInfoSuccessAction | IGetProfileInfoFailedAction | ICheckAuthAction | ICheckAuthSuccesstAction | ICheckAuthFailureAction | IEditProfileAction | IEditProfileSuccessAction | IEditProfileFailedAction | IResetProfile;
 
-export const profile = (token: string): AppThunkAction => (dispatch: AppDispatch) => {
+export const profile = (token: string): AppThunkAction<Promise<unknown>> => (dispatch) => {
     dispatch({type: GET_PROFILE_INFO})
+    dispatch({type: CHECK_AUTH} )
 
     const options = {
         method: 'GET',
@@ -130,7 +131,7 @@ export const profile = (token: string): AppThunkAction => (dispatch: AppDispatch
         }
     };
 
-    reduxRequest(`${URL}/auth/user`, options, dispatch)
+    return reduxRequest(`${URL}/auth/user`, options, dispatch)
         .then((data) => {
             const userData = {
                 email: data.email,
@@ -166,11 +167,10 @@ export const editProfile = (token: string, data: IProfileData): AppThunkAction =
         })
 }
 
-export const checkAuth = (): AppThunkAction => (dispatch: AppDispatch) => {
-    dispatch({type: CHECK_AUTH})
+export const checkAuth = (): (dispatch: any) => void => (dispatch) => {
+    dispatch({type: CHECK_AUTH} )
 
     const accessToken = localStorage.getItem('accessToken')
-
     if (accessToken) {
         dispatch({type: CHECK_AUTH__SUCCESS, payload: true})
     } else {

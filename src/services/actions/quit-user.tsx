@@ -1,6 +1,6 @@
 import {URL} from "../../utils/constants";
 import {reduxRequest} from "../../utils/redux-request";
-import {checkAuth, IResetProfile, RESET_PROFILE} from "./profile";
+import {checkAuth, IResetProfile, profile, RESET_PROFILE} from "./profile";
 import {IAuthReset, RESET_AUTH} from "./auth";
 import {AppDispatch, AppThunkAction} from "../../utils/types";
 
@@ -70,6 +70,10 @@ export const quitUser = (token: string): AppThunkAction => (dispatch: AppDispatc
             dispatch({type: RESET_AUTH});
             dispatch({type: RESET_PROFILE});
             dispatch(checkAuth())
+            // const accessToken = localStorage.getItem("accessToken")
+            // if (accessToken) {
+            //     dispatch(profile(accessToken))
+            // }
         })
         .catch((error) => {
             dispatch({type: QUIT__FAILURE, payload: error.message});

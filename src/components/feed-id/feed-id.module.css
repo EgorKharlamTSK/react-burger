@@ -1,0 +1,19 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 640px;
+    margin: 0px auto;
+    margin-top: 122px;
+}
+
+.pay{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

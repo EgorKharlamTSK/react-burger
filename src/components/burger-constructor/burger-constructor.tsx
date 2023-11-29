@@ -3,15 +3,16 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from './burger-constructor.module.css'
 import {useEffect, useState} from "react";
 import { OrderDetailsModal} from "../modal/order-details";
-import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients, getSumOfOrder} from "../../services/selectors/burger-constructor";
 import {getOrders} from "../../services/actions/order";
 import {resetConstructor} from "../../services/actions/burger-constructor";
 import {useNavigate} from "react-router-dom";
-import {IBurgerItemData, TDispatch} from "../../utils/types";
+import {IBurgerItemData} from "../../utils/types";
+import {useDispatch} from "../../services/hooks/use-dispatch";
+import {useSelector} from "../../services/hooks/use-selector";
 
 export const BurgerConstructor = () => {
-    const dispatch:TDispatch = useDispatch()
+    const dispatch= useDispatch()
     const sum = useSelector(getSumOfOrder)
     const loginStore = useSelector((state: any) => state.auth)
     const ingredientFromConstructor = useSelector(getConstructorIngredients)

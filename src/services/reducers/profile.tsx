@@ -81,10 +81,10 @@ export const profileInfoReducer = (state = initialState, action: TProfileActionT
             return {...state, isLoading: true}
         }
         case GET_PROFILE_INFO__SUCCESS: {
-            return {...state, isLoading: false, success: true, user: action.payload}
+            return {...state, isLoading: false, success: true, user: action.payload, isAuth: true, isAuthLoading: false}
         }
         case GET_PROFILE_INFO__FAILURE: {
-            return {...state, isLoading: false, success: false}
+            return {...state, isLoading: false, success: false, isAuth: false, isAuthLoading: false}
         }
         case CHECK_AUTH: {
             return {...state, isAuthLoading: true}

@@ -1,0 +1,18 @@
+.box {
+    background: #1C1C21;
+    border-radius: 40px;
+    width: 584px;
+}
+
+.currencyBox,
+.titleBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pay{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}

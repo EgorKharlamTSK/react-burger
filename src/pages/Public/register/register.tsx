@@ -2,9 +2,9 @@ import {useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css"
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {getRegistration} from "../../../services/actions/registration";
-import {registrationReducer} from "../../../services/reducers/registration";
+import {useDispatch} from "../../../services/hooks/use-dispatch";
+import {useSelector} from "../../../services/hooks/use-selector";
 
 export const Register = () => {
     const dispatch = useDispatch()

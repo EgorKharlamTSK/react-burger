@@ -1,12 +1,13 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css'
 import {useEffect, useMemo, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients} from "../../services/selectors/burger-constructor";
 import {addIngredient, checkSum, deleteIngredient, ingredientsCounter} from "../../services/actions/burger-constructor";
 import {useDrop} from "react-dnd";
 import {BurgerConstructorMiddleElement} from "./burger-constructor-middle-element";
 import {IBurgerItemData} from "../../utils/types";
+import {useDispatch} from "../../services/hooks/use-dispatch";
+import {useSelector} from "../../services/hooks/use-selector";
 
 export const BurgerConstructorList = () => {
     const dispatch = useDispatch()

@@ -15,6 +15,10 @@ export const GET_INGREDIENTS_COUNTER = "GET_INGREDIENTS_COUNTER"
 // export const reorderIngridients = (dragIndex: number, hoverIndex: number): any => ({type: REORDER_INGREDIENT, payload: {from: dragIndex, to: hoverIndex}})
 // export const resetConstructor = (): any => ({type: RESET_INGREDIENT})
 
+interface IIngredCount {
+    [x: string]: number
+}
+
 type addIngredientAction = {
     type: typeof ADD_INGREDIENT;
     payload: IBurgerItemData & { uniqId: string };
@@ -41,7 +45,7 @@ type sumIngredientsAction = {
 
 type getIngredientsCounterAction = {
     type: typeof GET_INGREDIENTS_COUNTER;
-    payload: IBurgerItemData[];
+    payload: IIngredCount;
 }
 
 export type TBurgerActions = addIngredientAction | deleteIngredientAction | getIngredientsCounterAction | reorderIngredientAction | resetIngredientAction | sumIngredientsAction;
@@ -62,7 +66,7 @@ export const checkSum = (data: IBurgerItemData[]): sumIngredientsAction => ({
     payload: data
 });
 
-export const ingredientsCounter = (listOfIngredients: IBurgerItemData[]): getIngredientsCounterAction => ({
+export const ingredientsCounter = (listOfIngredients: { [x: string]: number; }): getIngredientsCounterAction => ({
     type: GET_INGREDIENTS_COUNTER, payload: listOfIngredients
 });
 

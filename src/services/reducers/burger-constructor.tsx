@@ -58,17 +58,20 @@ import {
 import { IBurgerItemData } from "../../utils/types";
 import update from "immutability-helper";
 
+interface IIngredCount {
+    [x: string]: number
+}
 
 type state = {
     constructorIngredients: (IBurgerItemData & { uniqId: string })[];
     sum: number|null;
-    listOfCounterIngredients: IBurgerItemData[];
+    listOfCounterIngredients: IIngredCount;
 }
 
 const initialState: state = {
     constructorIngredients: [],
     sum: null,
-    listOfCounterIngredients: []
+    listOfCounterIngredients: {}
 }
 
 export const constructorReducer = (state: state = initialState, action: TBurgerActions): state => {

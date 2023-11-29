@@ -1,0 +1,29 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 580px;
+    gap: 50px;
+}
+
+.readyInWork {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    max-height: 100vh;
+}
+
+li {
+    list-style-type: none;
+}
+
+.readyFont{
+    color: #00CCCC;
+}
+
+.lists {
+    padding: 0;
+}
