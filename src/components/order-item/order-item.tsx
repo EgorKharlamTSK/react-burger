@@ -21,7 +21,7 @@ export const OrderItem:FC<IData> = ({data}) => {
         let resultArray:Array<any> = [];
         function compareAndCollectImages( allIngredients: IBurgerItemData[]) {
             data.ingredients.forEach((ingredientId: string) => {
-                let ingredient = allIngredients.find((ing: any) => ing._id === ingredientId);
+                let ingredient = allIngredients.find((ing: IBurgerItemData) => ing._id === ingredientId);
                 if (ingredient) {
                     resultArray.push(ingredient.image);
                 }

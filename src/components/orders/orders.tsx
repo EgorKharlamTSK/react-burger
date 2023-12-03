@@ -8,6 +8,7 @@ import {connect as connectWS, disconnect as disConnectWS} from "../../services/a
 import {ORDER_URL} from "../../utils/constants";
 import {useEffect} from "react";
 import {useSelector} from "../../services/hooks/use-selector";
+import {IOrders, IWsFeedsItem} from "../../utils/types";
 
 export const Orders = () => {
     const dispatch = useDispatch()
@@ -35,7 +36,7 @@ export const Orders = () => {
         <div className={`${styles.main} mt-30 container pl-5`}>
             <ProfileSidebar refreshToken={refreshToken} quitProfile={quitProfile} />
             <div className={styles.feedItem}>
-                {orders ? orders?.orders.map((item: any) => {
+                {orders ? orders?.orders.map((item: IWsFeedsItem) => {
                    return <OrderItem
                        key={item.number}
                        data={item}

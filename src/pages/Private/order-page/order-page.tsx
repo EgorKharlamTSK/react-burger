@@ -4,7 +4,7 @@ import {FeedId} from "../../../components/feed-id/feed-id";
 import {useSelector} from "../../../services/hooks/use-selector";
 import {useEffect, useState} from "react";
 import {IOrders} from "../../../utils/types";
-import {fintSpecOrder} from "../../../services/actions/specific-order-feed";
+import {findSpecOrder} from "../../../services/actions/specific-order-feed";
 import {useDispatch} from "../../../services/hooks/use-dispatch";
 
 export const OrderPage = () => {
@@ -16,7 +16,7 @@ export const OrderPage = () => {
 
     useEffect(() => {
         if (specOrder) {
-            const usefulFeed = specOrder.find((item: any) => {
+            const usefulFeed = specOrder.find((item: IOrders) => {
                 return item.number === number
             })
             setCurrentFeedItem(specOrder[0])
@@ -24,7 +24,7 @@ export const OrderPage = () => {
     }, [specOrder]);
 
     useEffect(() => {
-        dispatch(fintSpecOrder(number))
+        dispatch(findSpecOrder(number))
     }, [dispatch]);
 
     return (

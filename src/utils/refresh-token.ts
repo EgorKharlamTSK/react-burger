@@ -7,7 +7,7 @@ export const refreshToken = async (dispatch: AppDispatch):Promise<any> => {
         throw new Error("No refresh token found in local storage")
     }
     try{
-        const result:any = await dispatch(getNewToken(refreshToken))
+        const result = await dispatch(getNewToken(refreshToken))
         return result
     } catch (error) {
         console.error("error on new token request");

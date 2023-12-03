@@ -18,7 +18,6 @@ import {
 } from "../services/actions/ws-actions";
 import {TSpecOrderRequest} from "../services/actions/specific-order-feed";
 
-export type TDispatch = Dispatch
 export type TLocation = Location<any>
 
 export enum WebsocketStatus {
@@ -30,7 +29,7 @@ export enum WebsocketStatus {
 export interface IOrdersInfo {
     success: boolean,
     name: string,
-    order: IBurgerItemData[]
+    order: IOrders
 }
 
 export interface IBurgerItemData {
@@ -132,7 +131,7 @@ export interface IOrders{
     name: string,
     createdAt: string,
     updatedAt: string,
-    number: number,
+    number: string,
     __v: number
 }
 

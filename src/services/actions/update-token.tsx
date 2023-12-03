@@ -1,7 +1,6 @@
 import {URL} from "../../utils/constants";
 import {reduxRequest} from "../../utils/redux-request";
-import {AppDispatch, AppThunkAction, IRefreshData, TDispatch} from "../../utils/types";
-import {RESET_PASSWORD_REQUEST} from "./reset-password";
+import {AppDispatch, AppThunkAction} from "../../utils/types";
 
 export const REFRESH_TOKEN = "REFRESH_TOKEN"
 export const REFRESH_TOKEN__SUCCESS = "REFRESH_TOKEN__SUCCESS"
@@ -49,8 +48,8 @@ export const getNewToken = (token:string): AppThunkAction => async (dispatch: Ap
         const data_1 = await reduxRequest(`${URL}/auth/token`, options, dispatch);
         dispatch({type: REFRESH_TOKEN__SUCCESS, payload: data_1});
         return data_1;
-    } catch (error: any) {
-        dispatch({type: REFRESH_TOKEN__FAILURE, payload: error.message});
+    } catch (error: unknown) {
+        // dispatch({type: REFRESH_TOKEN__FAILURE, payload: error.message});
         throw error;
     }
 }

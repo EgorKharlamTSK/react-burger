@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {FormEvent, SyntheticEvent, useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password.module.css"
 import {Link, useLocation, useNavigate} from "react-router-dom";
@@ -8,7 +8,7 @@ import {useSelector} from "../../../services/hooks/use-selector";
 
 export const ResetPassword = () => {
     const dispatch = useDispatch()
-    const successRequesReset = useSelector((state: any) => state.resetPassword)
+    const successRequesReset = useSelector((state) => state.resetPassword)
     const navigate = useNavigate()
     const [valueToken, setToken] = useState('')
     const [valuePassword, setValuePassword] = useState('')
@@ -16,8 +16,8 @@ export const ResetPassword = () => {
     const location = useLocation();
     const isFromForgotPassword = location.state?.from === "/forgot-password"
 
-    const getNewPassword = (e: { preventDefault: (arg0: any) => void; }) => {
-        e.preventDefault(e)
+    const getNewPassword = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         let submitData = {
             "password": valuePassword,
             "token": valueToken

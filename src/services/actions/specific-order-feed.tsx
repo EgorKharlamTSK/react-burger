@@ -1,6 +1,5 @@
 import {AppDispatch, AppThunkAction, ISpecs, IWsFeedsItem} from "../../utils/types";
 import {reduxRequest} from "../../utils/redux-request";
-import {ORDER_URL, SPEC_ORDER_URL} from "../../utils/constants";
 
 export const SPEC_ORDER_REQUEST =  "SPEC_ORDER_REQUEST"
 export const SPEC_ORDER_SUCCESS =  "SPEC_ORDER_SUCCESS"
@@ -22,7 +21,7 @@ interface ISpecOrdFail {
 
 export type TSpecOrderRequest = ISpecOrdReq | ISpecOrdSuc | ISpecOrdFail
 
-export const fintSpecOrder = (number: string | undefined):AppThunkAction<unknown> => (dispatch: AppDispatch) => {
+export const findSpecOrder = (number: string | undefined):AppThunkAction<unknown> => (dispatch: AppDispatch) => {
     dispatch({type: SPEC_ORDER_REQUEST})
 
     const options = {
@@ -32,7 +31,7 @@ export const fintSpecOrder = (number: string | undefined):AppThunkAction<unknown
         },
     }
 
-    reduxRequest(`${SPEC_ORDER_URL}/${number}`, options,dispatch)
+    reduxRequest(`${URL}/orders/${number}`, options, dispatch)
         .then((data) => {
             dispatch({type: SPEC_ORDER_SUCCESS, payload: data})
         })

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {FormEvent, useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css"
 import {Link, useNavigate} from "react-router-dom";
@@ -9,13 +9,13 @@ import {useSelector} from "../../../services/hooks/use-selector";
 export const Register = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const regStore = useSelector((state:any) => state.registration)
+    const regStore = useSelector((state) => state.registration)
     const [valueName, setValueName] = useState('')
     const [valueLogin, setValueLogin] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
     const [errorText, setErrorText] = useState('')
-    const handleReg = (e: { preventDefault: () => void; }) => {
+    const handleReg = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         dispatch(getRegistration(valueName, valueLogin, valuePassword))
         if (regStore.success) {

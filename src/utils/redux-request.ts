@@ -2,7 +2,7 @@ import {checkResponse} from "./check-response";
 import {refreshToken} from "./refresh-token";
 import {AppDispatch} from "./types";
 
-export const reduxRequest = async (url: string, options?:{ method: string;  headers: { [key: string]: any };  body?: any;}, dispatch?:AppDispatch) => {
+export const reduxRequest = async (url: string, options?:{ method: string;  headers: { [key: string]: string };  body?: string}, dispatch?:AppDispatch) => {
     return fetch(url, options).then(checkResponse).catch(async error => {
        if (error.message === "jwt expired") {
           const refreshData = await refreshToken(dispatch!);

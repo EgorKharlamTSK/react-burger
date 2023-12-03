@@ -1,5 +1,5 @@
 import styles from "./feed-info.module.css"
-import {IWsFeed} from "../../utils/types";
+import {IWsFeed, IWsFeedsItem} from "../../utils/types";
 import {FC} from "react";
 
 interface IData {
@@ -16,7 +16,7 @@ export const FeedInfo:FC<IData> = ({data}) => {
                   <div className={styles.columnContainer}>
                       <ul className={styles.lists}>
                           {data &&
-                              data.orders.slice(0, 10).map((feed: any) => {
+                              data.orders.slice(0, 10).map((feed: IWsFeedsItem) => {
                                   if (feed.status === "done") {
                                       return (
                                           <li key={feed.number}>
@@ -38,7 +38,7 @@ export const FeedInfo:FC<IData> = ({data}) => {
                   <div>
                       <ul>
                           {data &&
-                              data.orders.slice(0, 10).map((feed: any) => {
+                              data.orders.slice(0, 10).map((feed: IWsFeedsItem) => {
                                   if (feed.status !== "done") {
                                       return (
                                           <li key={feed.number}>

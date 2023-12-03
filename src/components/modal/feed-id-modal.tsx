@@ -5,7 +5,7 @@ import {useDispatch} from "../../services/hooks/use-dispatch";
 import {useSelector} from "../../services/hooks/use-selector";
 import {useEffect, useState} from "react";
 import {IOrders} from "../../utils/types";
-import {fintSpecOrder} from "../../services/actions/specific-order-feed";
+import {findSpecOrder} from "../../services/actions/specific-order-feed";
 
 
 export const FeedIdModal = () => {
@@ -18,7 +18,7 @@ export const FeedIdModal = () => {
     const [currentFeedItem, setCurrentFeedItem] = useState<IOrders>()
 
     useEffect(() => {
-        dispatch(fintSpecOrder(number))
+        dispatch(findSpecOrder(number))
     }, [dispatch]);
 
     useEffect(() => {

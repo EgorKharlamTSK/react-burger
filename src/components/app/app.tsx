@@ -16,13 +16,11 @@ import {ProtectedRouteElement} from "../routes/protected-route";
 import {IngredientDetailsModal} from "../modal/ingredient-details";
 import {BurgerIngredientPage} from "../../pages/Public/burger-ingredient-page/burger-ingredient-page";
 import {checkAuth, profile} from "../../services/actions/profile";
-import {TDispatch, TLocation} from "../../utils/types";
+import {TLocation} from "../../utils/types";
 import {useDispatch} from "../../services/hooks/use-dispatch"
 import {useSelector} from "../../services/hooks/use-selector";
 import {Feed} from "../../pages/Private/feed/feed";
-import {FeedId} from "../feed-id/feed-id";
 import {Orders} from "../orders/orders";
-import {OrdersId} from "../orders-id/orders-id";
 import {FeedIdModal} from "../modal/feed-id-modal";
 import {FeedIdPage} from "../../pages/Public/feed-id-page/feed-id-page";
 import {OrderPage} from "../../pages/Private/order-page/order-page";
@@ -34,12 +32,12 @@ interface IMainRoute {
 }
 
 function App() {
-    const wasInForgotPass = useSelector((state:any) => state.auth.forgotPassword.onSendMail)
+    const wasInForgotPass = useSelector(state => state.auth.forgotPassword.onSendMail)
     const [dataIsLoadingInFront, setDataIsLoading] = useState(true)
     const dispatch = useDispatch()
-    const dataIsLoading = useSelector((state:any) => state.allIngredients.isLoading)
+    const dataIsLoading = useSelector((state) => state.allIngredients.isLoading)
     const accessToken = localStorage.getItem("accessToken")?.split('Bearer ')[1]
-    const isLoggedIn = useSelector((state:any) => state.profileData.isAuth);
+    const isLoggedIn = useSelector((state) => state.profileData.isAuth);
 
     useEffect(() => {
         setDataIsLoading(dataIsLoading)

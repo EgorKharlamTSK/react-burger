@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {FormEvent, useEffect, useRef, useState} from "react";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css"
 import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
@@ -10,14 +10,14 @@ import {useSelector} from "../../../services/hooks/use-selector";
 export const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const loginStore = useSelector((state:any) => state.auth)
-    const isLoggedIn = useSelector((state:any) => state.profileData.isAuth)
+    const loginStore = useSelector((state) => state.auth)
+    const isLoggedIn = useSelector((state) => state.profileData.isAuth)
     const [valueLogin, setValueLogin] = useState('')
     const [valuePassword, setValuePassword] = useState('')
     const inputRef = useRef(null)
     const location = useLocation();
     const from = location.state?.from || '/';
-    const handleLogin = (e: { preventDefault: () => void; }) => {
+    const handleLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(getAuth(valueLogin, valuePassword))
     }
@@ -25,9 +25,11 @@ export const Login = () => {
     useEffect(() => {
         if (loginStore.success === true) {
             navigate(from, { replace: true })
-            localStorage.setItem("refreshToken", loginStore.refreshToken)
-            localStorage.setItem("accessToken", loginStore.accessToken.split('Bearer ')[1])
-            dispatch(checkAuth())
+            if (loginStore.refreshToken && loginStore.accessToken) {
+                localStorage.setItem("refreshToken", loginStore.refreshToken)
+                localStorage.setItem("accessToken", loginStore.accessToken.split('Bearer ')[1])
+                dispatch(checkAuth())
+            }
         }
     }, [loginStore])
 

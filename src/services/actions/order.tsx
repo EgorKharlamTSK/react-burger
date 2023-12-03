@@ -1,6 +1,6 @@
 import {URL} from "../../utils/constants";
 import {reduxRequest} from "../../utils/redux-request";
-import {AppDispatch, TDispatch} from "../../utils/types";
+import {AppDispatch, IBurgerItemData} from "../../utils/types";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST"
 export const GET_ORDER_REQUEST_SUCCESS = "GET_ORDER_REQUEST_SUCCESS"
@@ -22,7 +22,7 @@ interface IGetOrderRequestFailureAction {
 
 export type TOrderInfoActions = IGetOrderRequestAction | IGetOrderRequestSuccessAction | IGetOrderRequestFailureAction;
 
-export const getOrders = (allIngredients: any[]) => (dispatch: AppDispatch) => {
+export const getOrders = (allIngredients: IBurgerItemData[]) => (dispatch: AppDispatch) => {
     dispatch<IGetOrderRequestAction>({ type: GET_ORDER_REQUEST });
     const accessToken = localStorage.getItem("accessToken")
 

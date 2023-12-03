@@ -12,9 +12,7 @@ import {useSelector} from "../../services/hooks/use-selector";
 export const BurgerConstructorList = () => {
     const dispatch = useDispatch()
     const ingredientsFromConstructor = useSelector(getConstructorIngredients)
-    const ingredientCounts = useMemo(() => ingredientsFromConstructor.reduce((acc: { [x: string]: any; }, item: { _id: string | number; }) => ({...acc, [item._id]: (acc[item._id] || 0) + 1}), []), [ingredientsFromConstructor])
-
-    const [firstItem, setFirstItem] = useState<IBurgerItemData>()
+    const ingredientCounts = useMemo(() => ingredientsFromConstructor.reduce((acc: { [x: string]: number; },item: { _id: string | number; }) => ({...acc, [item._id]: (+acc[item._id] || 0) + 1}), {}), [ingredientsFromConstructor]);    const [firstItem, setFirstItem] = useState<IBurgerItemData>()
     const [lastItem, setLastItem] = useState<IBurgerItemData>()
 
     useEffect(() => {
@@ -89,8 +87,8 @@ export const BurgerConstructorList = () => {
             )}
             <div className={styles.middle_burger_constructor} ref={dropTarget}>
                 {ingredientsFromConstructor?.length > 0 ?
-                    ingredientsFromConstructor.map((item: any, index: number) => {
-                        const currentItem = item.ingredient ? item.ingredient : item;
+                    ingredientsFromConstructor.map((item, index: number) => {
+                        const currentItem = item;
                         if (currentItem.type !== 'bun') {
                             return <BurgerConstructorMiddleElement key={currentItem.uniqId} index={index}  ingredient={currentItem} deleteIngredientFromFront={deleteIngredientFromFront}/>
                         }

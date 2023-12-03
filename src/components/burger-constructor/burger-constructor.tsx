@@ -14,7 +14,7 @@ import {useSelector} from "../../services/hooks/use-selector";
 export const BurgerConstructor = () => {
     const dispatch= useDispatch()
     const sum = useSelector(getSumOfOrder)
-    const loginStore = useSelector((state: any) => state.auth)
+    const loginStore = useSelector(state => state.auth)
     const ingredientFromConstructor = useSelector(getConstructorIngredients)
     const allIngredients = useSelector(getConstructorIngredients)
     const [isOpenModal, setIsOpenModal] = useState(false);

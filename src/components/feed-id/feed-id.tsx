@@ -27,14 +27,14 @@ export const FeedId:FC<IData> = ({data}) => {
         let resultArray:Array<any> = [];
         function compareAndCollectImages( allIngredients: IBurgerItemData[]) {
             data.ingredients.forEach((ingredientId: string) => {
-                let ingredient = allIngredients.find((ing: any) => ing._id === ingredientId);
+                let ingredient = allIngredients.find((ing: IBurgerItemData) => ing._id === ingredientId);
                 if (ingredient) {
                     resultArray.push(ingredient);
                 }
             });
         }
 
-        function getUniqueIngredients(data: IOrders | IWsFeedsItem, allIngredients: any[]) {
+        function getUniqueIngredients(data: IOrders | IWsFeedsItem, allIngredients: IBurgerItemData[]) {
             const ingredientCount = {} as {
                 [key: string]: number;
             };
@@ -59,6 +59,7 @@ export const FeedId:FC<IData> = ({data}) => {
             return uniqueIngredients;
         }
         const uniqueIngredients = getUniqueIngredients(data, allIngredients);
+        // @ts-ignore
         setNeedsIngredient(uniqueIngredients)
 
         function calculateTotalPrice(allIngredients: IBurgerItemData[]) {

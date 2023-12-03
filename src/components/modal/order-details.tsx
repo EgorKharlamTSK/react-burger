@@ -1,16 +1,16 @@
 import {Modal} from "./modal";
 import orderComplete from "../../images/done.png";
-import PropTypes from "prop-types";
-import {useSelector} from "react-redux";
+
 import {FC, useEffect, useState} from "react";
 import {IOrderDetailsModal} from "../../utils/types";
+import {useSelector} from "../../services/hooks/use-selector";
 
 export const OrderDetailsModal:FC<IOrderDetailsModal> = ({handleModal}) => {
-    const data = useSelector((state:any) => state.orderInfo)
-    const [orderNumber, setOrderNumber] = useState()
+    const data = useSelector(state => state.orderInfo)
+    const [orderNumber, setOrderNumber] = useState<string>()
 
     useEffect(() => {
-        if (data?.orderInfo?.order?.number) {
+        if (data.orderInfo?.order.number) {
             setOrderNumber(data.orderInfo.order.number)
         }
     }, [data, handleModal]);

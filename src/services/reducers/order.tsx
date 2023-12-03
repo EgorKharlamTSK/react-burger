@@ -7,14 +7,14 @@ import {
 import {IOrdersInfo} from "../../utils/types";
 
 type TOrderInfoState = {
-    orderInfo: IOrdersInfo[],
+    orderInfo: IOrdersInfo | null,
     isLoadingOrder: boolean,
     errorOrder: string | null,
     sum: number | null
 };
 
 const initialState: TOrderInfoState = {
-    orderInfo: [],
+    orderInfo: null,
     isLoadingOrder: false,
     errorOrder: null,
     sum: null
@@ -29,7 +29,7 @@ export const orderInfoReducer = (state: TOrderInfoState = initialState, action: 
             return { ...state, orderInfo: action.payload, isLoadingOrder: false };
         }
         case GET_ORDER_REQUEST_FALIURE: {
-            return { ...state, orderInfo: [], isLoadingOrder: false, errorOrder: "Ошибка загрузки данных" };
+            return { ...state, orderInfo: null, isLoadingOrder: false, errorOrder: "Ошибка загрузки данных" };
         }
         default: {
             return state;

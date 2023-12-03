@@ -16,11 +16,12 @@ export const BurgerConstructorMiddleElement: FC<IBurgerConstructorMiddleElement>
                 handlerId: monitor.getHandlerId(),
             }
         },
-        hover(item: any, monitor) {
+        hover(item, monitor) {
             if (!refIngredient.current) {
                 return
             }
-            const dragIndex = item.index
+            // @ts-ignore
+            const dragIndex: number = item.index
             const hoverIndex = index
             if (dragIndex === hoverIndex) {
                 return
@@ -39,6 +40,7 @@ export const BurgerConstructorMiddleElement: FC<IBurgerConstructorMiddleElement>
             }
             dispatch(reorderIngridients(dragIndex, hoverIndex))
 
+            // @ts-ignore
             item.index = hoverIndex
         },
     })

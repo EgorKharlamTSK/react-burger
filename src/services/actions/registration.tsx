@@ -32,7 +32,7 @@ interface IRegReq_SUC {
 
 interface IRegReq_FAIL {
     type: typeof REGISTRATION_REQUEST__FAILURE;
-    payload: IDataFromFailReg
+    payload: string
 }
 
 export type TRegistrationRequest = IRegReq | IRegReq_SUC | IRegReq_FAIL

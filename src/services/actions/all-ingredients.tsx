@@ -1,6 +1,6 @@
 import {URL} from "../../utils/constants";
 import {reduxRequest} from "../../utils/redux-request";
-import {AppThunkAction, IBurgerIngredientsItemType} from "../../utils/types";
+import {AppThunkAction, IBurgerIngredientsItemType, IBurgerItemData} from "../../utils/types";
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = "GET_INGREDIENTS_REQUEST"
 export const GET_INGREDIENTS_REQUEST_SUCCESS: 'GET_INGREDIENTS_REQUEST_SUCCESS' = "GET_INGREDIENTS_REQUEST_SUCCESS"
 export const GET_INGREDIENTS_REQUEST_FALIURE: 'GET_INGREDIENTS_REQUEST_FALIURE' = "GET_INGREDIENTS_REQUEST_FALIURE"
@@ -11,7 +11,7 @@ export interface IGetIngredientsReq {
 
 export interface IGetIngredientsReqSuc {
     readonly type: typeof GET_INGREDIENTS_REQUEST_SUCCESS;
-    readonly payload: IBurgerIngredientsItemType
+    readonly payload: IBurgerItemData[]
 }
 
 export interface IGetIngredientsReqFail {

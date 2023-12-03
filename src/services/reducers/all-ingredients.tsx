@@ -6,7 +6,7 @@ import {
 import {IBurgerItemData} from "../../utils/types";
 
 interface IInitialStateAllIngred {
-    ingredients: Array<IBurgerItemData>,
+    ingredients: IBurgerItemData[],
     isLoading: boolean,
     error: string,
 }
@@ -16,7 +16,7 @@ const initialState: IInitialStateAllIngred = {
     isLoading: false,
     error: '',
 }
-export const allIngredients = (state = initialState, action: TGetIngredient) => {
+export const allIngredients = (state = initialState, action: TGetIngredient): IInitialStateAllIngred=> {
     switch (action.type){
         case GET_INGREDIENTS_REQUEST: {
             return {...state,  isLoading: true}

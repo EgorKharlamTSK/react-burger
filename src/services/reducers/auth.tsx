@@ -6,7 +6,24 @@ import {
     FORGOT_PASSWORD__SUCCESS, forgotPass, RESET_AUTH, TAuth
 } from "../actions/auth";
 
-const initialState = {
+interface IState {
+    success: boolean,
+    accessToken: string | null,
+    refreshToken: string | null,
+    user: {
+        email: string | null,
+        name: string | null
+    },
+    isLoading: boolean,
+    forgotPassword: {
+        onSendMail: boolean,
+        isLoadingPasswordReq: boolean,
+        success: boolean,
+        message: string | null
+    }
+}
+
+const initialState:IState = {
     success: false,
     accessToken: null,
     refreshToken: null,

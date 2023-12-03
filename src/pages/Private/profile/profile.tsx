@@ -1,5 +1,5 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {SetStateAction, useEffect, useRef, useState} from "react";
+import {FormEvent, SetStateAction, useEffect, useRef, useState} from "react";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import styles from "./profile.module.css"
 import {quitUser} from "../../../services/actions/quit-user";
@@ -16,7 +16,7 @@ type SubmitData = {
 
 export const Profile = () => {
     const dispatch = useDispatch()
-    const profileInfo = useSelector((state: any) => state.profileData)
+    const profileInfo = useSelector((state) => state.profileData)
     const navigate = useNavigate()
     const [valueName, setValueName] = useState('')
     const [valueLogin, setValueLogin] = useState('')
@@ -50,7 +50,7 @@ export const Profile = () => {
         setChangeValues(true)
     }
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let submitData:SubmitData = {};
         if (loginChanged) {

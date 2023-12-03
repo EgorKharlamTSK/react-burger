@@ -30,7 +30,7 @@ const initialState: IInitialStateReq = {
     errorMessage: ''
 }
 
-export const registrationReducer = (state = initialState, action: TRegistrationRequest) => {
+export const registrationReducer = (state = initialState, action: TRegistrationRequest): IInitialStateReq=> {
     switch (action.type) {
         case REGISTRATION_REQUEST: {
             return {...state, isLoading: true}
