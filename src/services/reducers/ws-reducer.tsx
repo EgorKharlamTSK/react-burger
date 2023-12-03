@@ -1,39 +1,39 @@
 import {IWsFeed, WebsocketStatus} from "../../utils/types";
-import {ws_close_feed, ws_connecingtFeed, ws_error_feed, ws_message_feed, ws_open_feed} from "../actions/ws-orders";
 import {createReducer} from "@reduxjs/toolkit";
+import {connect, wsClose, wsConnecting, wsError, wsMessage, wsOpen} from "../actions/ws-actions";
 
 type TWsFeed = {
     wsConnected: boolean
     status: WebsocketStatus
-    feeds: IWsFeed[]
+    orders: IWsFeed | null
     error?: string
 }
 
 const initialState: TWsFeed = {
     wsConnected: false,
     status: WebsocketStatus.OFFLINE,
-    feeds: [],
+    orders: null,
     error: ''
 }
 
 export const wsFeedsReducer = createReducer(initialState, builder => {
     builder
-        .addCase(ws_connecingtFeed, (state) => {
+        .addCase(wsConnecting, (state) => {
             state.status = WebsocketStatus.CONNECTING;
         })
-        .addCase(ws_open_feed, (state) => {
+        .addCase(wsOpen, (state) => {
             state.status = WebsocketStatus.ONLINE
             state.error = ''
         })
-        .addCase(ws_close_feed, (state) => {
+        .addCase(wsClose, (state) => {
             state.status = WebsocketStatus.OFFLINE
         })
-        .addCase(ws_error_feed, (state, action) => {
+        .addCase(wsError, (state, action) => {
             state.error = action.payload
         })
-        .addCase(ws_message_feed, (state, action) => {
+        .addCase(wsMessage, (state, action) => {
             if (action.payload) {
-                state.feeds = [...state.feeds, action.payload];
+                return {...state, orders: action.payload};
             }
         })
 })

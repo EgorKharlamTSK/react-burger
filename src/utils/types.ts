@@ -2,7 +2,6 @@ import { ReactElement, ReactNode} from "react";
 import {Location} from "react-router-dom";
 import { Dispatch } from 'redux';
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {store} from "../services/store";
 import {TGetIngredient} from "../services/actions/all-ingredients";
 import {TAuth} from "../services/actions/auth";
 import {TBurgerActions} from "../services/actions/burger-constructor";
@@ -14,7 +13,10 @@ import {TRegistrationRequest} from "../services/actions/registration";
 import {TResetPassword} from "../services/actions/reset-password";
 import {TRefreshTokeAction} from "../services/actions/update-token";
 import {rootReducer} from "../services/reducers/root-reducer";
-import {TWsFeedActions} from "../services/actions/ws-orders";
+import {
+    TWSActions
+} from "../services/actions/ws-actions";
+import {TSpecOrderRequest} from "../services/actions/specific-order-feed";
 
 export type TDispatch = Dispatch
 export type TLocation = Location<any>
@@ -23,6 +25,12 @@ export enum WebsocketStatus {
     CONNECTING =  "CONNECTING...",
     ONLINE = "ONLINE",
     OFFLINE = "OFFLINE"
+}
+
+export interface IOrdersInfo {
+    success: boolean,
+    name: string,
+    order: IBurgerItemData[]
 }
 
 export interface IBurgerItemData {
@@ -39,6 +47,7 @@ export interface IBurgerItemData {
     image_large: string
     __v: number
     uniqId?: number | string | undefined
+    count?:number
 }
 
 export interface IBurgerIngredientsItemType  {
@@ -87,16 +96,44 @@ export interface IWsFeedsItem {
     ingredients: string[],
     _id: string,
     status: string,
-    number: number,
+    number: string,
     createdAt: string,
     updatedAt: string
+    name: string
+    owner?: string
+    __v?: number
 }
 
 export interface IWsFeed {
     success: boolean,
-    feeds: IWsFeedsItem[],
+    orders: IWsFeedsItem[]
     total: number,
     totalToday: number
+}
+
+export interface ISpecOrder {
+    success: boolean;
+    orders: IOrders[];
+}
+
+
+export interface ISpecs {
+    error: string
+    isLoading: boolean
+    specOrder: ISpecOrder | null
+    orders?: IOrders[];
+}
+
+export interface IOrders{
+    _id: string,
+    ingredients: Array<string>,
+    owner: string,
+    status: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    number: number,
+    __v: number
 }
 
 export type TApplicationActions = |
@@ -110,8 +147,10 @@ export type TApplicationActions = |
     TRegistrationRequest |
     TResetPassword |
     TRefreshTokeAction |
-    TWsFeedActions
+    TWSActions |
+    TSpecOrderRequest
 
+export type TAppActions = TWSActions | TApplicationActions
 export type TRootState = ReturnType<typeof rootReducer>
 export type AppDispatch = ThunkDispatch<TRootState, unknown, TApplicationActions>;
 export type AppThunkAction<ReturnType = void> = ThunkAction<ReturnType, TRootState, unknown, TApplicationActions>;

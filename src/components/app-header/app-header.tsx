@@ -15,11 +15,13 @@ export const AppHeader = () => {
                     <AppHeaderButton
                         text="Конструктор"
                         icon={<BurgerIcon type={hoverConstr ? 'primary' : 'secondary'} />}
+                        path={"/"}
                     />
 
                     <AppHeaderButton
                         text="Лента заказов"
                         icon={<ListIcon type={hoverList ? 'primary' : 'secondary'} />}
+                        path={'/feed'}
                     />
                 </nav>
                 <Link to={"/"} >

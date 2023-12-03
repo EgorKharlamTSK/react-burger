@@ -9,7 +9,7 @@ interface IAppHeaderBtn {
     path?: string
 }
 
-export const AppHeaderButton: FC<IAppHeaderBtn> = ({text, icon, path = "/feed"}) => {
+export const AppHeaderButton: FC<IAppHeaderBtn> = ({text, icon, path = "/"}) => {
     const [hover, setHover] = useState(false)
 
     return(

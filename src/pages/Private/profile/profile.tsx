@@ -77,41 +77,6 @@ export const Profile = () => {
 
     return(
         <div className={`${styles.main} mt-30 container pl-5`}>
-            {/*<div className={`${styles.links} mr-15`}>*/}
-            {/*    <NavLink to={{pathname: "/profile"}}*/}
-            {/*         className= {({isActive}) => isActive ? `active text text_type_main-medium` : `text text_type_main-medium`}*/}
-            {/*         style={isActive => ({*/}
-            {/*             color: isActive && "white"*/}
-            {/*         })}*/}
-            {/*    >*/}
-            {/*        Профиль*/}
-            {/*    </NavLink>*/}
-            {/*    <NavLink*/}
-            {/*        className= {({isActive}) => isActive ? `active text text_type_main-medium` : `text text_type_main-medium`}*/}
-            {/*        style={isActive => ({*/}
-            {/*            color: isActive && "white"*/}
-            {/*        })}*/}
-            {/*        to="/profile"*/}
-            {/*    >*/}
-            {/*        История заказов*/}
-            {/*    </NavLink>*/}
-            {/*    <NavLink*/}
-            {/*        onClick={() => {*/}
-            {/*                refreshToken && quitProfile(refreshToken)*/}
-            {/*            }*/}
-            {/*        }*/}
-            {/*        className= {({isActive}) => isActive ? `active text text_type_main-medium` : `text text_type_main-medium`}*/}
-            {/*        style={isActive => ({*/}
-            {/*            color: isActive && "white"*/}
-            {/*        })}*/}
-            {/*        to="/profile"*/}
-            {/*    >*/}
-            {/*        Выход*/}
-            {/*    </NavLink>*/}
-            {/*    <p className="text text_type_main-default text_color_inactive mt-20">*/}
-            {/*        В этом разделе вы можете изменить свои персональные данные*/}
-            {/*    </p>*/}
-            {/*</div>*/}
             <ProfileSidebar refreshToken={refreshToken} quitProfile={quitProfile}/>
             <div>
                 <form onSubmit={handleSubmit}>

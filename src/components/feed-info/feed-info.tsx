@@ -1,5 +1,11 @@
 import styles from "./feed-info.module.css"
-export const FeedInfo = () => {
+import {IWsFeed} from "../../utils/types";
+import {FC} from "react";
+
+interface IData {
+    data: IWsFeed
+}
+export const FeedInfo:FC<IData> = ({data}) => {
     return (
       <div className={styles.main}>
           <div className={styles.readyInWork}>
@@ -7,28 +13,21 @@ export const FeedInfo = () => {
                   <p className="text text_type_main-medium">
                   Готовы:
                   </p>
-                  <div>
+                  <div className={styles.columnContainer}>
                       <ul className={styles.lists}>
-                          <li>
-                              <p className={`text text_type_main-default ${styles.readyFont}`}>
-                                  3213123123213
-                              </p>
-                          </li>
-                          <li>
-                              <p className={`text text_type_main-default ${styles.readyFont}`}>
-                                  3213123123213
-                              </p>
-                          </li>
-                          <li>
-                              <p className={`text text_type_main-default ${styles.readyFont}`}>
-                                  3213123123213
-                              </p>
-                          </li>
-                          <li>
-                              <p className={`text text_type_main-default ${styles.readyFont}`}>
-                                  3213123123213
-                              </p>
-                          </li>
+                          {data &&
+                              data.orders.slice(0, 10).map((feed: any) => {
+                                  if (feed.status === "done") {
+                                      return (
+                                          <li key={feed.number}>
+                                              <p className={`text text_type_main-default ${styles.readyFont}`}>
+                                                  {feed.number}
+                                              </p>
+                                          </li>
+                                      )
+                                  }
+                              })
+                          }
                       </ul>
                   </div>
               </div>
@@ -38,8 +37,17 @@ export const FeedInfo = () => {
                   </p>
                   <div>
                       <ul>
-                          <li><p>3213123123213</p></li>
-                          <li><p>3213123123213</p></li>
+                          {data &&
+                              data.orders.slice(0, 10).map((feed: any) => {
+                                  if (feed.status !== "done") {
+                                      return (
+                                          <li key={feed.number}>
+                                              {feed.number}
+                                          </li>
+                                      )
+                                  }
+                              })
+                          }
                       </ul>
                   </div>
               </div>
@@ -49,7 +57,7 @@ export const FeedInfo = () => {
                   Выполнено за все время:
               </p>
               <p className="text text_type_digits-large">
-                  28752
+                  {data?.total}
               </p>
           </div>
           <div>
@@ -57,7 +65,7 @@ export const FeedInfo = () => {
                   Выполнено за сегодня:
               </p>
               <p className="text text_type_digits-large">
-                  138
+                  {data?.totalToday}
               </p>
           </div>
       </div>

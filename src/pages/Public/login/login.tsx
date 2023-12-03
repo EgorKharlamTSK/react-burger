@@ -28,10 +28,6 @@ export const Login = () => {
             localStorage.setItem("refreshToken", loginStore.refreshToken)
             localStorage.setItem("accessToken", loginStore.accessToken.split('Bearer ')[1])
             dispatch(checkAuth())
-            // const accessToken = localStorage.getItem("accessToken")
-            // if (accessToken) {
-            //     dispatch(profile(accessToken))
-            // }
         }
     }, [loginStore])
 

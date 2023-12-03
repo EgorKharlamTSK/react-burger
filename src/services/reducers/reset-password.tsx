@@ -16,7 +16,6 @@ const initialState: IInitialStateResetPass = {
     isLoading: false
 }
 
-
 export const resetPasswordReducer = (state = initialState, action: TResetPassword) => {
     switch (action.type) {
         case RESET_PASSWORD_REQUEST: {

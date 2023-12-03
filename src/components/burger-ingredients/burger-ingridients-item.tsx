@@ -31,8 +31,6 @@ export const BurgerIngredientsItem = forwardRef<HTMLDivElement, IBurgerIngredien
                         return <BurgerIngredientsButton
                             key={item._id}
                             item={item}
-                            // setSelectedItem={setSelectedItem}
-                            // setIsOpenModal={setIsOpenModal}
                             handleModal={handleModal}
                             isOpenModal={isOpenModal}
                         />

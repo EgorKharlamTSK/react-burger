@@ -3,3 +3,9 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.feedItem {
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

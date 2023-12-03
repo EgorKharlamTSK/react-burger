@@ -1,6 +1,6 @@
 import {URL} from "../../utils/constants";
 import {reduxRequest} from "../../utils/redux-request";
-import {AppDispatch, AppThunkAction, TDispatch} from "../../utils/types";
+import {AppDispatch, AppThunkAction} from "../../utils/types";
 
 export const AUTH_REQUEST:'AUTH_REQUEST' = "AUTH_REQUEST"
 export const AUTH_REQUEST__SUCCESS: 'AUTH_REQUEST__SUCCESS' = "AUTH_REQUEST__SUCCESS"

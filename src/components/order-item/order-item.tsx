@@ -1,16 +1,16 @@
+import styles from "./order-item.module.css"
+import {Link, useLocation} from "react-router-dom";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./feed-item.module.css"
-import {IBurgerItemData, IWsFeedsItem} from "../../utils/types";
 import {FC, useEffect, useState} from "react";
+import {IBurgerItemData, IWsFeedsItem} from "../../utils/types";
 import {useSelector} from "../../services/hooks/use-selector";
 import {getAllIngredients} from "../../services/selectors/burger-ingredients";
-import {Link, useLocation} from "react-router-dom";
+import {checkStatus} from "../feed-id/feed-id";
 
 interface IData {
     data: IWsFeedsItem
 }
-
-export const FeedItem:FC<IData> = ({data}) => {
+export const OrderItem:FC<IData> = ({data}) => {
     const allIngredients = useSelector(getAllIngredients)
     let location = useLocation();
     const [arrayOfImages, setArrayOfImages] = useState<Array<string>>()
@@ -43,12 +43,11 @@ export const FeedItem:FC<IData> = ({data}) => {
         setArrayOfImages(resultArray)
     }, [allIngredients, allIngredForFeed]);
 
-
     return (
         <div className={`${styles.box} p-6 mb-4`}>
             <Link
                 className={`${styles.link}`}
-                to={`/feed/${data.number}`}
+                to={`/orders/${data.number}`}
                 state={{ backgroundLocation: location }}
             >
                 <div className={`${styles.titleBox} mb-6`}>
@@ -60,6 +59,9 @@ export const FeedItem:FC<IData> = ({data}) => {
                 <div className='mb-6'>
                     <p className="text text_type_main-medium">
                         {data.name}
+                    </p>
+                    <p className={`text text_type_main-default ${styles.status}`}>
+                        {checkStatus(data.status)}
                     </p>
                 </div>
                 <div className={styles.currencyBox}>
@@ -74,7 +76,7 @@ export const FeedItem:FC<IData> = ({data}) => {
                                 } else if (index === 5) {
                                     const remainingCount = arrayOfImages.length - 5;
                                     return (
-                                            <span style={{backgroundImage: `url(${img})`}} className={styles.remaining} key={data._id + img + index}>
+                                        <span style={{backgroundImage: `url(${img})`}} className={styles.remaining} key={data._id + img + index}>
                                                 <span className={styles.remaining}>
                                                     <span>
                                                         +{remainingCount}

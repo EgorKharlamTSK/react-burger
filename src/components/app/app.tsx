@@ -23,6 +23,10 @@ import {Feed} from "../../pages/Private/feed/feed";
 import {FeedId} from "../feed-id/feed-id";
 import {Orders} from "../orders/orders";
 import {OrdersId} from "../orders-id/orders-id";
+import {FeedIdModal} from "../modal/feed-id-modal";
+import {FeedIdPage} from "../../pages/Public/feed-id-page/feed-id-page";
+import {OrderPage} from "../../pages/Private/order-page/order-page";
+import {OrderIdModal} from "../modal/order-id-modal";
 
 interface IMainRoute {
     wasInForgotPass: boolean
@@ -34,7 +38,7 @@ function App() {
     const [dataIsLoadingInFront, setDataIsLoading] = useState(true)
     const dispatch = useDispatch()
     const dataIsLoading = useSelector((state:any) => state.allIngredients.isLoading)
-    const accessToken = localStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem("accessToken")?.split('Bearer ')[1]
     const isLoggedIn = useSelector((state:any) => state.profileData.isAuth);
 
     useEffect(() => {
@@ -45,10 +49,9 @@ function App() {
         dispatch(getAllIngredients())
     }, [dispatch]);
 
-
     useEffect(() => {
         if (accessToken) {
-            dispatch(profile(`Bearer ${accessToken}`))
+            dispatch(profile(`${accessToken}`))
         }
     }, [isLoggedIn]);
 
@@ -68,10 +71,6 @@ const MainRoute:FC<IMainRoute> = ( {wasInForgotPass, dataIsLoadingInFront} ) => 
 
     useEffect(() => {
         dispatch(checkAuth())
-        // const accessToken = localStorage.getItem("accessToken")
-        // if (accessToken) {
-        //     dispatch(profile(accessToken))
-        // }
     }, [location]);
 
     return (
@@ -83,11 +82,11 @@ const MainRoute:FC<IMainRoute> = ( {wasInForgotPass, dataIsLoadingInFront} ) => 
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={wasInForgotPass ? <ResetPassword /> : <Navigate to="/login" />} />
                 <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/orders:id" element={<OrdersId />} />
+                <Route path="/orders" element={<ProtectedRouteElement element={<Orders />} /> } />
+                <Route path="/orders/:number" element={<ProtectedRouteElement element={<OrderPage />} />} />
                 <Route path="/ingredients/:id" element={<BurgerIngredientPage />} />
                 <Route path='/feed' element={<Feed />} />
-                <Route path='/feed:id' element={<FeedId />} />
+                <Route path='/feed/:number' element={<FeedIdPage />} />
                 <Route path="/" element={
                     <div className={style.app}>
                         <DndProvider backend={HTML5Backend}>
@@ -104,6 +103,20 @@ const MainRoute:FC<IMainRoute> = ( {wasInForgotPass, dataIsLoadingInFront} ) => 
                         path="/ingredients/:id"
                         element={
                             <IngredientDetailsModal />
+                        }
+                    />
+                    <Route
+                        path="/feed/:number"
+                        element={
+                            <FeedIdModal />
+                        }
+                    />
+                    <Route
+                        path="/orders/:number"
+                        element={
+                            <ProtectedRouteElement element={
+                                <OrderIdModal />
+                            } />
                         }
                     />
                 </Routes>
