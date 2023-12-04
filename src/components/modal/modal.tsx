@@ -8,7 +8,7 @@ import {IModalPropTypes} from "../../utils/types";
 export const Modal:FC<IModalPropTypes> = ({ title, closeModal, children }) => {
     const modalBlock = document.getElementById("modal");
     useEffect(() => {
-        const handleKeyDown = (event: { key: string; }) => {
+        const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
                 closeModal();
             }

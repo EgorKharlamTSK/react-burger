@@ -1,5 +1,7 @@
 import {AppDispatch, AppThunkAction, ISpecs, IWsFeedsItem} from "../../utils/types";
 import {reduxRequest} from "../../utils/redux-request";
+import {URL} from "../../utils/constants";
+
 
 export const SPEC_ORDER_REQUEST =  "SPEC_ORDER_REQUEST"
 export const SPEC_ORDER_SUCCESS =  "SPEC_ORDER_SUCCESS"
@@ -30,9 +32,10 @@ export const findSpecOrder = (number: string | undefined):AppThunkAction<unknown
             'Content-Type': 'application/json',
         },
     }
-
+    console.log(`${URL}/orders/${number}`)
     reduxRequest(`${URL}/orders/${number}`, options, dispatch)
         .then((data) => {
+            console.log(data)
             dispatch({type: SPEC_ORDER_SUCCESS, payload: data})
         })
         .catch((error) => {
