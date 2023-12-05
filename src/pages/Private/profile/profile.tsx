@@ -1,11 +1,12 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {SetStateAction, useCallback, useEffect, useRef, useState} from "react";
+import {FormEvent, SetStateAction, useEffect, useRef, useState} from "react";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import styles from "./profile.module.css"
-import {useDispatch, useSelector} from "react-redux";
 import {quitUser} from "../../../services/actions/quit-user";
 import {CHECK_AUTH, checkAuth, editProfile, profile} from "../../../services/actions/profile";
-import {getNewToken} from "../../../services/actions/update-token";
+import {useDispatch} from "../../../services/hooks/use-dispatch";
+import {useSelector} from "../../../services/hooks/use-selector";
+import {ProfileSidebar} from "../../../components/profile-sidebar/profile-sidebar";
 
 type SubmitData = {
     email?: string;
@@ -15,7 +16,7 @@ type SubmitData = {
 
 export const Profile = () => {
     const dispatch = useDispatch()
-    const profileInfo = useSelector((state: any) => state.profileData)
+    const profileInfo = useSelector((state) => state.profileData)
     const navigate = useNavigate()
     const [valueName, setValueName] = useState('')
     const [valueLogin, setValueLogin] = useState('')
@@ -49,7 +50,7 @@ export const Profile = () => {
         setChangeValues(true)
     }
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let submitData:SubmitData = {};
         if (loginChanged) {
@@ -76,41 +77,7 @@ export const Profile = () => {
 
     return(
         <div className={`${styles.main} mt-30 container pl-5`}>
-            <div className={`${styles.links} mr-15`}>
-                <NavLink to={{pathname: "/profile"}}
-                     className= {({isActive}) => isActive ? `active text text_type_main-medium` : `text text_type_main-medium`}
-                     style={isActive => ({
-                         color: isActive && "white"
-                     })}
-                >
-                    Профиль
-                </NavLink>
-                <NavLink
-                    className= {({isActive}) => isActive ? `active text text_type_main-medium` : `text text_type_main-medium`}
-                    style={isActive => ({
-                        color: isActive && "white"
-                    })}
-                    to="/profile"
-                >
-                    История заказов
-                </NavLink>
-                <NavLink
-                    onClick={() => {
-                            refreshToken && quitProfile(refreshToken)
-                        }
-                    }
-                    className= {({isActive}) => isActive ? `active text text_type_main-medium` : `text text_type_main-medium`}
-                    style={isActive => ({
-                        color: isActive && "white"
-                    })}
-                    to="/profile"
-                >
-                    Выход
-                </NavLink>
-                <p className="text text_type_main-default text_color_inactive mt-20">
-                    В этом разделе вы можете изменить свои персональные данные
-                </p>
-            </div>
+            <ProfileSidebar refreshToken={refreshToken} quitProfile={quitProfile}/>
             <div>
                 <form onSubmit={handleSubmit}>
                     <Input

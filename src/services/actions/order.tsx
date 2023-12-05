@@ -1,29 +1,44 @@
 import {URL} from "../../utils/constants";
-import {checkResponse} from "../../utils/check-response";
 import {reduxRequest} from "../../utils/redux-request";
-import {TDispatch} from "../../utils/types";
+import {AppDispatch, IBurgerItemData} from "../../utils/types";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST"
 export const GET_ORDER_REQUEST_SUCCESS = "GET_ORDER_REQUEST_SUCCESS"
 export const GET_ORDER_REQUEST_FALIURE = "GET_ORDER_REQUEST_FALIURE"
-export const getOrders = (allIngredients: any) :any => (dispatch:TDispatch): any => {
-    dispatch({type: GET_ORDER_REQUEST})
+
+
+interface IGetOrderRequestAction {
+    type: typeof GET_ORDER_REQUEST;
+}
+
+interface IGetOrderRequestSuccessAction {
+    type: typeof GET_ORDER_REQUEST_SUCCESS;
+    payload: any;
+}
+
+interface IGetOrderRequestFailureAction {
+    type: typeof GET_ORDER_REQUEST_FALIURE;
+}
+
+export type TOrderInfoActions = IGetOrderRequestAction | IGetOrderRequestSuccessAction | IGetOrderRequestFailureAction;
+
+export const getOrders = (allIngredients: IBurgerItemData[]) => (dispatch: AppDispatch) => {
+    dispatch<IGetOrderRequestAction>({ type: GET_ORDER_REQUEST });
+    const accessToken = localStorage.getItem("accessToken")
 
     const options = {
-        headers: {
-            'Content-Type': 'application/json'
+        headers: { 'Content-Type': 'application/json',
+            "authorization": `Bearer ${accessToken}`
         },
         method: 'POST',
-        body: JSON.stringify({
-            "ingredients": allIngredients
-        })
+        body: JSON.stringify({ "ingredients": allIngredients })
     }
 
     reduxRequest(`${URL}/orders`, options, dispatch)
         .then((data) => {
-            dispatch({type: GET_ORDER_REQUEST_SUCCESS, payload: data})
+            dispatch<IGetOrderRequestSuccessAction>({ type: GET_ORDER_REQUEST_SUCCESS, payload: data })
         })
         .catch((error) => {
-            dispatch({type: GET_ORDER_REQUEST_FALIURE})
+            dispatch<IGetOrderRequestFailureAction>({ type: GET_ORDER_REQUEST_FALIURE })
         })
 }

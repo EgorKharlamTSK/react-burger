@@ -1,22 +1,36 @@
 import {
     REGISTRATION_REQUEST,
     REGISTRATION_REQUEST__FAILURE,
-    REGISTRATION_REQUEST__SUCCESS
+    REGISTRATION_REQUEST__SUCCESS, TRegistrationRequest
 } from "../actions/registration";
 
-const initialState = {
-    success: false,
-    user: {
-        "email": null,
-        "name": null
-    },
-    accessToken: null,
-    refreshToken: null,
-    isLoading: false,
-    errorMessage: null
+interface IDataUser {
+    email: string,
+    name: string
 }
 
-export const registrationReducer = (state = initialState, action: { type: any; payload: { user: string; accessToken: string; refreshToken: string; }; }) => {
+interface IInitialStateReq {
+    success: boolean,
+    user: IDataUser,
+    accessToken: string,
+    refreshToken: string,
+    isLoading: boolean,
+    errorMessage: string
+}
+
+const initialState: IInitialStateReq = {
+    success: false,
+    user: {
+        email: '',
+        name: ''
+    },
+    accessToken: '',
+    refreshToken: '',
+    isLoading: false,
+    errorMessage: ''
+}
+
+export const registrationReducer = (state = initialState, action: TRegistrationRequest): IInitialStateReq=> {
     switch (action.type) {
         case REGISTRATION_REQUEST: {
             return {...state, isLoading: true}

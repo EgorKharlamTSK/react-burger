@@ -2,10 +2,10 @@ import {useEffect, useMemo, useState} from "react";
 import {BurgerIngredientsItem} from "./burger-ingridients-item";
 import ingredientsStyle from './burger-ingridients.module.css'
 import {BurgerIngredientsTabs} from "./burger-ingridients-tabs";
-import {useSelector} from "react-redux";
 import {getAllIngredients} from "../../services/selectors/burger-ingredients";
 import { useInView } from 'react-intersection-observer';
 import {IBurgerItemData} from "../../utils/types";
+import {useSelector} from "../../services/hooks/use-selector";
 
 
 export const BurgerIngredients = () => {

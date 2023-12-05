@@ -1,0 +1,76 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 640px;
+    margin: 0px auto;
+    /*margin-top: 122px;*/
+}
+
+.pay{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.itemIngred {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 70px;
+    border-width: 2px;
+    box-shadow: inset 0 0 0 2px #801AB2, inset 0 0 0 2px #4C4CFF;
+    border-radius: 100px;
+}
+
+.imageBox {
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-color: #131316;
+    border-radius: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.titleAndImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+.priceBoxItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.title{
+    text-align: center;
+}
+
+.status {
+    color: #00CCCC
+}
+
+.ingrBox {
+    overflow-y: auto;
+    max-height: 300px;
+    padding: 40px 0px;
+}

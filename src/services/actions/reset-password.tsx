@@ -1,13 +1,29 @@
 import {URL} from "../../utils/constants";
-import {checkResponse} from "../../utils/check-response";
 import {reduxRequest} from "../../utils/redux-request";
-import {TDispatch} from "../../utils/types";
+import {AppDispatch, AppThunkAction} from "../../utils/types";
 
 export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST"
 export const RESET_PASSWORD_REQUEST__SUCCESS = "RESET_PASSWORD_REQUEST__SUCCESS"
 export const RESET_PASSWORD_REQUEST__FAILURE = "RESET_PASSWORD_REQUEST__FAILURE"
 
-export const resetPassword = (data: any): any => (dispatch: TDispatch): any => {
+interface IDataForSuc {
+    message: string
+}
+
+interface IResetPass {
+    type: typeof RESET_PASSWORD_REQUEST;
+}
+interface IResetPassSuc {
+    type: typeof RESET_PASSWORD_REQUEST__SUCCESS
+    payload: IDataForSuc
+}
+interface IResetPassFail {
+    type: typeof RESET_PASSWORD_REQUEST__FAILURE;
+}
+
+export type TResetPassword = IResetPass | IResetPassSuc | IResetPassFail
+
+export const resetPassword = (data: { password: string; token: string; }): AppThunkAction => (dispatch: AppDispatch) => {
     dispatch({type: RESET_PASSWORD_REQUEST})
 
     const bodyData = data

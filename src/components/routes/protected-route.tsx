@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import {FC} from "react";
 import {IProtectedRouteElement} from "../../utils/types";
+import {useSelector} from "../../services/hooks/use-selector";
 
 export const ProtectedRouteElement:FC<IProtectedRouteElement> = ({ element, anonymous = false }) => {
-    const isLoggedIn = useSelector((state:any) => state.profileData.isAuthLoading);
-    const userData = useSelector((state:any) => state.profileData.isAuth)
+    const isLoggedIn = useSelector((state) => state.profileData.isAuthLoading);
+    const userData = useSelector((state) => state.profileData.isAuth)
     const location = useLocation();
 
     if (isLoggedIn) {

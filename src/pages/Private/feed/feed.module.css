@@ -1,0 +1,18 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.feedItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-start;
+    max-height: 80vh;
+    width: auto;
+    overflow-y: auto;
+    width: 870px;
+}

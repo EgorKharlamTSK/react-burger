@@ -1,17 +1,22 @@
 import {
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST__FAILURE,
-    RESET_PASSWORD_REQUEST__SUCCESS
+    RESET_PASSWORD_REQUEST__SUCCESS, TResetPassword
 } from "../actions/reset-password";
 
-const initialState = {
+interface IInitialStateResetPass {
+    success: boolean,
+    message: string,
+    isLoading: boolean
+}
+
+const initialState: IInitialStateResetPass = {
     success: false,
-    message: null,
+    message: "",
     isLoading: false
 }
 
-
-export const resetPasswordReducer = (state = initialState, action: { type: any; payload: { message: string; }; }) => {
+export const resetPasswordReducer = (state = initialState, action: TResetPassword) => {
     switch (action.type) {
         case RESET_PASSWORD_REQUEST: {
             return {...state, isLoading: true}

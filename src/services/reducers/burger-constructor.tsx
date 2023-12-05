@@ -1,19 +1,32 @@
 import {
     ADD_INGREDIENT,
-    DELETE_INGREDIENT, GET_INGREDIENTS_COUNTER,
+    DELETE_INGREDIENT,
+    GET_INGREDIENTS_COUNTER,
     REORDER_INGREDIENT,
     RESET_INGREDIENT,
-    SUM_INGREDIENTS
+    SUM_INGREDIENTS, TBurgerActions,
 } from "../actions/burger-constructor";
+
+import { IBurgerItemData } from "../../utils/types";
 import update from "immutability-helper";
 
-const initialState = {
-    constructorIngredients: [],
-    sum: null,
-    listOfCounterIngredients: []
+interface IIngredCount {
+    [x: string]: number
 }
 
-export const constructorReducer = (state = initialState, action: { type: any; payload: { reduce: (arg0: (acc: any, item: any) => any, arg1: number) => any; from: number; to: number; }; }) => {
+type state = {
+    constructorIngredients: (IBurgerItemData & { uniqId: string })[];
+    sum: number|null;
+    listOfCounterIngredients: IIngredCount;
+}
+
+const initialState: state = {
+    constructorIngredients: [],
+    sum: null,
+    listOfCounterIngredients: {}
+}
+
+export const constructorReducer = (state: state = initialState, action: TBurgerActions): state => {
     switch (action.type) {
         case ADD_INGREDIENT: {
             return {...state, constructorIngredients: [...state.constructorIngredients, action.payload]}
@@ -29,7 +42,7 @@ export const constructorReducer = (state = initialState, action: { type: any; pa
             const newIngredients = update(state.constructorIngredients, {
                 $splice: [
                     [action.payload.from, 1],
-                    [action.payload.to, 0, state.constructorIngredients[action.payload.from]],
+                    [action.payload.to, 0, state.constructorIngredients[action.payload.from]]
                 ],
             });
             return {...state, constructorIngredients: newIngredients}

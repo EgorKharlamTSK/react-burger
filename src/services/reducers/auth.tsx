@@ -3,10 +3,27 @@ import {
     AUTH_REQUEST__FAILURE,
     AUTH_REQUEST__SUCCESS,
     FORGOT_PASSWORD, FORGOT_PASSWORD__FAILURE,
-    FORGOT_PASSWORD__SUCCESS, forgotPass, RESET_AUTH
+    FORGOT_PASSWORD__SUCCESS, forgotPass, RESET_AUTH, TAuth
 } from "../actions/auth";
 
-const initialState = {
+interface IState {
+    success: boolean,
+    accessToken: string | null,
+    refreshToken: string | null,
+    user: {
+        email: string | null,
+        name: string | null
+    },
+    isLoading: boolean,
+    forgotPassword: {
+        onSendMail: boolean,
+        isLoadingPasswordReq: boolean,
+        success: boolean,
+        message: string | null
+    }
+}
+
+const initialState:IState = {
     success: false,
     accessToken: null,
     refreshToken: null,
@@ -23,7 +40,7 @@ const initialState = {
     }
 }
 
-export const authReducer = (state = initialState, action: { type: any; payload: { user: string; accessToken: string; refreshToken: string; success: boolean; message: string; }; }) => {
+export const authReducer = (state = initialState, action: TAuth) => {
     switch (action.type) {
         case AUTH_REQUEST: {
             return {...state, isLoading: true}

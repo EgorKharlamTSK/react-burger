@@ -1,2 +1,3 @@
-export const showIngredientInfo = (state: { currentIngredientInfo: { currentIngredientInfo: any } }) => state.currentIngredientInfo.currentIngredientInfo
-export const showIngredientLoading = (state: { currentIngredientInfo: { isLoading: any } }) => state.currentIngredientInfo.isLoading
+import {TRootState} from "../../utils/types";
+
+export const showIngredientInfo = (state: TRootState) => state.currentIngredientInfo.currentIngredientInfo

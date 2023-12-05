@@ -1,6 +1,6 @@
 import { Modal } from "./modal";
 import { useEffect, useState } from "react";
-import { hideIngredientIfoModal } from "../../services/actions/current-ingredient";
+import { hideIngredientInfoModal } from "../../services/actions/current-ingredient";
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {getAllIngredients} from "../../services/selectors/burger-ingredients";
@@ -23,7 +23,7 @@ export const IngredientDetailsModal = () => {
     }, [ingredientsData]);
 
     const handleCloseModal = () => {
-        dispatch(hideIngredientIfoModal());
+        dispatch(hideIngredientInfoModal());
         navigate(-1);
     };
 

@@ -9,6 +9,8 @@ import {updateTokenReducer} from "./update-token";
 import {quitReducer} from "./quit-user";
 import {profileInfoReducer} from "./profile";
 import {resetPasswordReducer} from "./reset-password";
+import {wsFeedsReducer} from "./ws-reducer";
+import {specOrderFeedReducer} from "./specific-order-feed";
 
 export const rootReducer = combineReducers({
     allIngredients: allIngredients,
@@ -20,5 +22,7 @@ export const rootReducer = combineReducers({
     updateToken: updateTokenReducer,
     quitUser: quitReducer,
     profileData: profileInfoReducer,
-    resetPassword: resetPasswordReducer
+    resetPassword: resetPasswordReducer,
+    wsFeeds: wsFeedsReducer,
+    specOrderFeed: specOrderFeedReducer
 })

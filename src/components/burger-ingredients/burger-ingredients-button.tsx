@@ -1,15 +1,16 @@
 import tabStyle from "./burger-ingridients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
-import {useDispatch, useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom";
 import {IBurgerIngredientsButton, IBurgerItemData} from "../../utils/types";
 import {FC} from "react";
+import {useSelector} from "../../services/hooks/use-selector";
+import {useDispatch} from "../../services/hooks/use-dispatch";
 
 export const BurgerIngredientsButton:FC<IBurgerIngredientsButton> = ({isOpenModal, item, handleModal}) => {
     const dispatch = useDispatch()
     let location = useLocation();
-    const counter = useSelector((state: any) => state.constructorReducer.listOfCounterIngredients)
+    const counter = useSelector((state) => state.constructorReducer.listOfCounterIngredients)
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: "ingredient",
         item: item,
@@ -36,8 +37,8 @@ export const BurgerIngredientsButton:FC<IBurgerIngredientsButton> = ({isOpenModa
                     alt={item.name}
                     onClick={() => handleModal(item)}
                 />
-                {displayCountOfIngredient(item) > 0 ?
-                    <Counter count={displayCountOfIngredient(item)} /> : <></>
+                {item && typeof displayCountOfIngredient(item) !== "undefined" && displayCountOfIngredient(item)! > 0 ?
+                    <Counter count={displayCountOfIngredient(item)!} /> : <></>
                 }
             </Link>
             <div className={`${tabStyle.item_price} mt-1 mb-1`}>

@@ -1,14 +1,27 @@
-import {REFRESH_TOKEN, REFRESH_TOKEN__FAILURE, REFRESH_TOKEN__SUCCESS} from "../actions/update-token";
+import {
+    REFRESH_TOKEN,
+    REFRESH_TOKEN__FAILURE,
+    REFRESH_TOKEN__SUCCESS,
+    TRefreshTokeAction
+} from "../actions/update-token";
 
-const initialState = {
-    isLoading: false,
-    error: null,
-    success: true,
-    accessToken: null,
-    refreshToken: null
+interface IInitialStateRefresh {
+    isLoading: boolean,
+    error: string,
+    success: boolean,
+    accessToken: string,
+    refreshToken: string
 }
 
-export const updateTokenReducer = (state = initialState, action: { type: any; payload: { accessToken: string; refreshToken: string; }; }) => {
+const initialState: IInitialStateRefresh = {
+    isLoading: false,
+    error: '',
+    success: true,
+    accessToken: '',
+    refreshToken: ''
+}
+
+export const updateTokenReducer = (state = initialState, action: TRefreshTokeAction) => {
     switch (action.type) {
         case REFRESH_TOKEN: {
             return {...state, isLoading: true}

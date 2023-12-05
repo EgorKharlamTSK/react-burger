@@ -1,0 +1,76 @@
+.box {
+    background: #1C1C21;
+    border-radius: 40px;
+    width: 584px;
+}
+
+.currencyBox,
+.titleBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pay{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.imageBox{
+    display: flex;
+    flex-direction: row;
+    width: 436px;
+}
+
+.imageBox > span {
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-color: #131316;
+    border-radius: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: -10px;
+    z-index: 100;
+}
+
+.image {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 70px;
+    border-width: 2px;
+    box-shadow: inset 0 0 0 2px #801AB2, inset 0 0 0 2px #4C4CFF;
+    border-radius: 100px;
+}
+
+.remaining {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 70px;
+    border-width: 2px;
+    box-shadow: inset 0 0 0 2px #801AB2, inset 0 0 0 2px #4C4CFF;
+    border-radius: 100px;
+}
+
+.remaining > span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+}
+
+.link {
+    text-decoration: none;
+    color: unset;
+}
