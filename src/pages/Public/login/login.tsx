@@ -46,6 +46,7 @@ export const Login = () => {
                     Вход
                 </p>
                 <Input
+                    data-cy="cyLogin"
                     type={'text'}
                     placeholder={'E-mail'}
                     onChange={e => setValueLogin(e.target.value)}
@@ -58,6 +59,7 @@ export const Login = () => {
                     extraClass="ml-1 pb-6"
                 />
                 <Input
+                    data-cy="cyPassword"
                     type={'text'}
                     placeholder={'Пароль'}
                     onChange={e => setValuePassword(e.target.value)}
@@ -70,7 +72,7 @@ export const Login = () => {
                     size={'default'}
                     extraClass="ml-1 pb-6"
                 />
-                <Button htmlType="submit" type="primary" size="large" >
+                <Button htmlType="submit" type="primary" size="large" data-cy="cySubmitLogin" >
                     Вход
                 </Button>
                 <div className={`${styles.textBlocks} pt-20`}>

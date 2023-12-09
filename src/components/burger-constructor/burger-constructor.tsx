@@ -49,7 +49,7 @@ export const BurgerConstructor = () => {
                     <p className="text text_type_digits-medium">{sum}</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button disabled={ingredientFromConstructor.length > 0 && includeBun ? false : true} onClick={handleModal} htmlType="button" type="primary" size="large">
+                <Button disabled={ingredientFromConstructor.length > 0 && includeBun ? false : true} data-cy="btnOrder" onClick={handleModal} htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
             </div>

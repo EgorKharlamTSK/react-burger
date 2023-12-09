@@ -76,7 +76,6 @@ export const getAuth = (email: string, password: string): AppThunkAction => (dis
 
     reduxRequest(`${URL}/auth/login`, options, dispatch)
         .then((data) => {
-            console.log(data)
             dispatch({type: AUTH_REQUEST__SUCCESS, payload: data})
         })
         .catch((error) => {

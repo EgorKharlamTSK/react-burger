@@ -26,11 +26,12 @@ export const BurgerIngredientsButton:FC<IBurgerIngredientsButton> = ({isOpenModa
     }
 
     return (
-        <div ref={dragRef} className={`${tabStyle.tabItem} mt-6 mb-10`} key={item.uniqId}>
+        <div ref={dragRef} className={`${tabStyle.tabItem} mt-6 mb-10`} key={item.uniqId} data-cy="ingredients">
             <Link
                 to={`/ingredients/${item._id}`}
                 state={{ backgroundLocation: location }}
                 className={`${tabStyle.btn}`}
+                data-cy="ingredientClick"
             >
                 <img
                     src={`${item.image}`}

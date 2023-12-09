@@ -74,7 +74,7 @@ export const BurgerConstructorList = () => {
     }
 
     return (
-        <div className={`${styles.general_burger_constructor} pt-25`} ref={dropTarget}>
+        <div className={`${styles.general_burger_constructor} pt-25`} ref={dropTarget} data-cy="constructor">
             {firstItem &&(
                 <ConstructorElement
                     key={firstItem.name}
