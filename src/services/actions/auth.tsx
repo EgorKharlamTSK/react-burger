@@ -54,7 +54,6 @@ interface IAuthForPasSuc {
 interface IAuthForPasFail {
     readonly type: typeof FORGOT_PASSWORD__FAILURE;
     readonly payload: ForgotData;
-
 }
 
 export type TAuth = | IAuthReq | IAuthReqSuc | IAuthReqFail | IAuthReset | IAuthForPas | IAuthForPasSuc | IAuthForPasFail
@@ -77,6 +76,7 @@ export const getAuth = (email: string, password: string): AppThunkAction => (dis
 
     reduxRequest(`${URL}/auth/login`, options, dispatch)
         .then((data) => {
+            console.log(data)
             dispatch({type: AUTH_REQUEST__SUCCESS, payload: data})
         })
         .catch((error) => {
