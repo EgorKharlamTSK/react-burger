@@ -14,14 +14,14 @@ import {useSelector} from "../../services/hooks/use-selector";
 export const BurgerConstructor = () => {
     const dispatch= useDispatch()
     const sum = useSelector(getSumOfOrder)
-    const loginStore = useSelector(state => state.auth)
+    const loginStore = useSelector(state => state.profileData)
     const ingredientFromConstructor = useSelector(getConstructorIngredients)
     const allIngredients = useSelector(getConstructorIngredients)
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [includeBun, setIncludeBun] = useState(false)
     const navigate = useNavigate()
     const handleModal = async () => {
-        if (loginStore.success === true) {
+        if (loginStore.isAuth === true) {
             if(allIngredients.length > 0) {
                 dispatch(getOrders(allIngredients))
             }

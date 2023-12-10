@@ -32,10 +32,9 @@ export const findSpecOrder = (number: string | undefined):AppThunkAction<unknown
             'Content-Type': 'application/json',
         },
     }
-    console.log(`${URL}/orders/${number}`)
+
     reduxRequest(`${URL}/orders/${number}`, options, dispatch)
         .then((data) => {
-            console.log(data)
             dispatch({type: SPEC_ORDER_SUCCESS, payload: data})
         })
         .catch((error) => {

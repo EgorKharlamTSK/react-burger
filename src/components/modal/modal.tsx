@@ -25,7 +25,7 @@ export const Modal:FC<IModalPropTypes> = ({ title, closeModal, children }) => {
                 <div className="modalContent">
                     <header className={modalStyles.modalHeader}>
                         <h2 className="text text_type_main-large">{title}</h2>
-                        <button className={modalStyles.modalClose} onClick={closeModal}>
+                        <button className={modalStyles.modalClose} onClick={closeModal} data-cy="btnCloseModal">
                             <CloseIcon type="primary" />
                         </button>
                     </header>

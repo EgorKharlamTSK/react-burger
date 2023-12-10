@@ -1,4 +1,4 @@
-describe('open modal with ingredient info after click', () => {
+describe('close modals after click button close', () => {
     beforeEach(() => {
         window.localStorage.setItem(
             "accessToken",
@@ -13,10 +13,16 @@ describe('open modal with ingredient info after click', () => {
 
         cy.intercept("GET", "api/auth/user", { fixture: "user.json" });
         cy.intercept("POST", "api/orders", { fixture: "order.json" }).as("postOrder");
-
     })
 
-    it("should drag ingredients to constructor", () => {
+    it("should close ingredient details modal after clicks", () => {
+        cy.get("[data-cy=ingredientClick]").first().click();
+        cy.contains("Детали ингридиента")
+
+        cy.get("[data-cy=btnCloseModal]").first().click();
+    })
+
+    it("should close order details modal after clicks", () => {
         cy.get("[data-cy=ingredients]")
             .contains("Краторная")
             .trigger("dragstart");
@@ -32,5 +38,6 @@ describe('open modal with ingredient info after click', () => {
         cy.get("[data-cy=btnOrder]").contains("Оформить заказ").click()
 
         cy.contains("123").should("exist")
+        cy.get("[data-cy=btnCloseModal]").first().click();
     })
 })

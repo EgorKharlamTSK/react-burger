@@ -77,10 +77,6 @@ export const FeedId:FC<IData> = ({data}) => {
         setArrayOfImages(resultArray)
     }, [allIngredients, allIngredForFeed]);
 
-    useEffect(() => {
-        console.log(needsIngredient)
-    }, [needsIngredient]);
-
     return (
         <div className={styles.main}>
             <p className={`text text_type_digits-default mb-10 ${styles.title}`}>
