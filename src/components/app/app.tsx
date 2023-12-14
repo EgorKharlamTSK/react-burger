@@ -6,7 +6,7 @@ import {BurgerConstructor} from "../burger-constructor/burger-constructor";
 import {getAllIngredients} from "../../services/actions/all-ingredients";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {BrowserRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
+import {HashRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
 import {Login} from "../../pages/Public/login/login";
 import {Register} from "../../pages/Public/register/register";
 import {ForgotPassword} from "../../pages/Public/forgot-password/forgot-password";
