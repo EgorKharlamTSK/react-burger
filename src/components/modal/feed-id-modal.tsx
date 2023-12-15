@@ -22,10 +22,6 @@ export const FeedIdModal = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        console.log(specOrder)
-    }, [specOrder]);
-
-    useEffect(() => {
         if (specOrder) {
             setCurrentFeedItem(specOrder[0]);
         }

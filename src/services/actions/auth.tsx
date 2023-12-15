@@ -54,7 +54,6 @@ interface IAuthForPasSuc {
 interface IAuthForPasFail {
     readonly type: typeof FORGOT_PASSWORD__FAILURE;
     readonly payload: ForgotData;
-
 }
 
 export type TAuth = | IAuthReq | IAuthReqSuc | IAuthReqFail | IAuthReset | IAuthForPas | IAuthForPasSuc | IAuthForPasFail
