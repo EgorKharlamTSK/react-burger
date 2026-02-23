@@ -1,2 +1,2 @@
-Деплой проекта на gh-pages по ссылке:
-https://egorkharlamtsk.github.io/react-burger/#/
+![React burger screenshot](screenshot.png)
+## Modern burger constructor app built with React, TypeScript, and Redux. Live demo available.
